@@ -3,8 +3,10 @@
     [System.Serializable]
     public class ModifiableValueInt : ModifiableValue<int>
     {
-        public ModifiableValueInt(int baseValue) : base(baseValue) { }
-        
+        public ModifiableValueInt(int baseValue) : base(baseValue)
+        {
+        }
+
         protected override int Add(int a, int b)
         {
             return a + b;

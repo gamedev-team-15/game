@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 6672334128765779040}
   - component: {fileID: 1797428370841737644}
   - component: {fileID: 4441810720717422946}
+  - component: {fileID: 6095832914115711391}
   m_Layer: 0
   m_Name: PlayerPlaceholder
   m_TagString: Untagged
@@ -211,5 +212,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement:
     speed:
-      baseValue: 5
-    damping: 0.5
+      baseValue: 100
+    damping: 1
+--- !u!50 &6095832914115711391
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4641601065864750785}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 4
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

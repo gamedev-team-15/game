@@ -1,17 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(Camera))]
     public class PlayerCamera : MonoBehaviour
     {
         private Transform _player;
+        public Camera Camera { get; private set; }
 
         private void Start()
         {
             _player = FindObjectOfType<PlayerController>().transform;
+            Camera = gameObject.GetComponent<Camera>();
         }
 
         private void LateUpdate()

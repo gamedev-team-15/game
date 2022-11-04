@@ -7,8 +7,7 @@ namespace Editor
     public class KnockbackTest : MonoBehaviour
     {
         [SerializeField] [Range(0, 10)] private float force = 1;
-        // TODO: improve knockback on player and other rigidbodies
-        
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.TryGetComponent(out Player.PlayerController p))

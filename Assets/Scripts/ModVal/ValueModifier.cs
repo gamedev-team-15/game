@@ -11,7 +11,7 @@ namespace ModVal
         [SerializeField] private ModifierType modifierType;
         public T Value => value;
         public ModifierType Type => modifierType;
-        
+
         public ValueModifier(T value, ModifierType modifierType = ModifierType.Constant)
         {
             this.value = value;

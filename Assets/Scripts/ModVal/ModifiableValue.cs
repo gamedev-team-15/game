@@ -29,17 +29,17 @@ namespace ModVal
         {
             return Modifiers.Contains(modifier);
         }
-        
+
         public void RemoveModifier(ValueModifier<T> modifier)
         {
             Modifiers.Remove(modifier);
             UpdateValue();
         }
-        
+
         public void RemoveLastModifier(ValueModifier<T> modifier)
         {
             int index = Modifiers.LastIndexOf(modifier);
-            if(index > 0)
+            if (index > 0)
                 Modifiers.RemoveAt(index);
             UpdateValue();
         }
@@ -47,7 +47,7 @@ namespace ModVal
         public void RemoveLastModifier()
         {
             int index = Modifiers.Count - 1;
-            if(index > 0)
+            if (index > 0)
                 Modifiers.RemoveAt(index);
             UpdateValue();
         }
