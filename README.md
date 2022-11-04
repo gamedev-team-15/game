@@ -2,6 +2,9 @@
 
 ## TODO:
 - [ ] Add description
-- [ ] Add player movement
+- [x] Player movement
+- [ ] Projectile system
+- [ ] Player shooting system
+- [ ] Health system
 
 ### _TBD..._

@@ -1,9 +1,11 @@
-﻿using UnityEditor;
+﻿using System;
+using Input;
+using UnityEditor;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IInputSystemListener
     {
         #region Variables
 
@@ -12,11 +14,11 @@ namespace Player
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
         private Vector3 _mousePos = Vector3.zero;
-        private Camera _camera;
+        private InputSystem _input;
 
         #endregion
 
-        // TODO: add aiming and weapons, add health system, effects that modify player
+        // TODO: and weapons, add health system, effects that modify player
 
         #region Methods
 
@@ -31,36 +33,49 @@ namespace Player
 
             // Set up movement
             movement.SetRigidbody(rb2d);
-
-            // Set up player camera
-            _camera = FindObjectOfType<PlayerCamera>().Camera;
+            
+            // Register input listener
+            _input = FindObjectOfType<InputSystem>();
+            if (_input is null)
+            {
+                Debug.LogError("InputSystem not found!");
+                enabled = false;
+                return;
+            }
+            _input.AddInputListener(this);
+        }
+        
+        public void MovementInput(Vector3 movementInput)
+        {
+            _movementInput = movementInput;
         }
 
-        // Get all input and do other actions here
+        public void MouseMovement(Vector3 mousePosition)
+        {
+            _mousePos = mousePosition;
+        }
+
+        public void FireButtonPressed()
+        {
+            // TODO: add shooting mechanics
+            Debug.Log("Shoot");
+        }
+
+        // Do main actions here
         private void Update()
         {
-            // Get player movement input
-            _movementInput.x = Input.GetAxisRaw("Horizontal");
-            _movementInput.y = Input.GetAxisRaw("Vertical");
-            _movementInput.Normalize();
-
-            // Get player mouse location and calculate aiming direction
-            _mousePos = Input.mousePosition;
-            _mousePos.z = -_camera.transform.position.z;
-            _aimingDirection = (_camera.ScreenToWorldPoint(_mousePos) - transform.position).normalized;
-
-            // Shoot projectile
-            if (Input.GetButtonDown("PrimaryFire"))
-            {
-                // Shoot
-                Debug.Log("Shoot");
-            }
+            _aimingDirection = (_mousePos - transform.position).normalized;
         }
 
         // Process physics-related stuff
         private void FixedUpdate()
         {
             movement.Move(_movementInput);
+        }
+
+        private void OnDestroy()
+        {
+            _input.RemoveInputListener(this);
         }
 
         #endregion
