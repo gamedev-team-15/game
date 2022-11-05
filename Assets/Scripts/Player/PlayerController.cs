@@ -15,6 +15,8 @@ namespace Player
         private Vector2 _aimingDirection = Vector2.right;
         private Vector3 _mousePos = Vector3.zero;
         private InputSystem _input;
+        [SerializeField] private PlayerShooter shooter;
+        [SerializeField] private Transform muzzle;
 
         #endregion
 
@@ -43,6 +45,7 @@ namespace Player
                 return;
             }
             _input.AddInputListener(this);
+            shooter.SetMuzzle(muzzle);
         }
         
         public void MovementInput(Vector3 movementInput)
@@ -57,8 +60,7 @@ namespace Player
 
         public void FireButtonPressed()
         {
-            // TODO: add shooting mechanics
-            Debug.Log("Shoot");
+            shooter.Shoot(_aimingDirection);
         }
 
         // Do main actions here
