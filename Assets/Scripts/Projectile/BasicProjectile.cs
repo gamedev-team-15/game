@@ -1,17 +1,16 @@
-using System;
 using UnityEngine;
 
 namespace Projectile
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class BasicProjectile : Projectile
     {
-        [SerializeField]
-        private float force = 10f;
-        [SerializeField] 
-        private Rigidbody2D rb2d;
+        [SerializeField] private float force = 10f;
+        private Rigidbody2D _rb2d;
 
         public override void Initialize()
         {
+            _rb2d = transform.GetComponent<Rigidbody2D>();
             Destroy(gameObject, LifeTime);
         }
 
@@ -21,15 +20,15 @@ namespace Projectile
             Destroy(gameObject);
         }
 
-        public override void Launch(Vector2 v)
+        public override void Launch(Vector2 direction)
         {
-            transform.right = v;
-            rb2d.AddForce(transform.right * force, ForceMode2D.Impulse);
+            transform.right = direction;
+            _rb2d.AddForce(direction * force, ForceMode2D.Impulse);
         }
 
-        public override void Launch(Transform t)
+        public override void Launch(Transform target)
         {
-            Launch((t.position - transform.position).normalized);
+            Launch((target.position - transform.position).normalized);
         }
     }
 }

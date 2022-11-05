@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Input;
+using Interfaces;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,13 +11,17 @@ namespace Player
         #region Variables
 
         [SerializeField] private PlayerMovement movement = new();
+        [SerializeField] private PlayerShooter shooter = new();
+        
         public PlayerMovement Movement => movement;
+        public PlayerShooter Shooter => shooter;
+        
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
         private Vector3 _mousePos = Vector3.zero;
         private InputSystem _input;
-        [SerializeField] private PlayerShooter shooter;
-        [SerializeField] private Transform muzzle;
+        private bool _fireButtonDown = false;
+        private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
 
         #endregion
 
@@ -45,7 +50,13 @@ namespace Player
                 return;
             }
             _input.AddInputListener(this);
-            shooter.SetMuzzle(muzzle);
+            
+            
+            shooter.SetMuzzle(transform);
+            
+            
+            _updatables.Add(movement);
+            _updatables.Add(shooter);
         }
         
         public void MovementInput(Vector3 movementInput)
@@ -53,20 +64,27 @@ namespace Player
             _movementInput = movementInput;
         }
 
-        public void MouseMovement(Vector3 mousePosition)
-        {
-            _mousePos = mousePosition;
-        }
-
         public void FireButtonPressed()
         {
-            shooter.Shoot(_aimingDirection);
+            _fireButtonDown = true;
+        }
+
+        public void FireButtonReleased()
+        {
+            _fireButtonDown = false;
         }
 
         // Do main actions here
         private void Update()
         {
             _aimingDirection = (_mousePos - transform.position).normalized;
+            _mousePos = _input.MousePosition;
+            
+            if(_fireButtonDown)
+                shooter.Shoot(_aimingDirection);
+
+            foreach (var updatable in _updatables)
+                 updatable.Update(Time.deltaTime);
         }
 
         // Process physics-related stuff

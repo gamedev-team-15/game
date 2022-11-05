@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &772003461 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3166892056624268949, guid: 4904d3ece806f8946b9c6f3d59805f42, type: 3}
+  m_PrefabInstance: {fileID: 801212663379927864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &801212663379927864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 419627404, guid: 4904d3ece806f8946b9c6f3d59805f42, type: 3}
+      propertyPath: shooter.cooldown
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 801212664343505597, guid: 4904d3ece806f8946b9c6f3d59805f42, type: 3}
       propertyPath: m_Name
       value: World
@@ -244,6 +253,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1267459273, guid: 92037b1d3f5c308469f77f1e7dce0b28, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 772003461}
     - target: {fileID: 2993399803177350130, guid: 92037b1d3f5c308469f77f1e7dce0b28, type: 3}
       propertyPath: m_RootOrder
       value: 3

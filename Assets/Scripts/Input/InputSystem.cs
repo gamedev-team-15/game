@@ -5,7 +5,7 @@ namespace Input
 {
     public class InputSystem : MonoBehaviour
     {
-        private HashSet<IInputSystemListener> _listeners = new();
+        private readonly HashSet<IInputSystemListener> _listeners = new();
         private bool _isInitialized = false;
         private Vector3 _movementInput = Vector3.zero;
         private Vector3 _mousePosition = Vector3.zero;
@@ -27,6 +27,9 @@ namespace Input
             _isInitialized = true;
         }
 
+        public Vector3 MovementInput => _movementInput;
+        public Vector3 MousePosition => _mousePosition;
+
         private void Update()
         {
             if(!_isInitialized) return;
@@ -42,16 +45,13 @@ namespace Input
             _mousePosition = UnityEngine.Input.mousePosition;
             _mousePosition.z = -_camera.transform.position.z;
             _mousePosition = _camera.ScreenToWorldPoint(_mousePosition);
-            foreach (var l in _listeners)
-            {
-                l.MouseMovement(_mousePosition);
-            }
 
             if(UnityEngine.Input.GetButtonDown("PrimaryFire"))
                 foreach (var l in _listeners)
-                {
                     l.FireButtonPressed();
-                }
+            else if(UnityEngine.Input.GetButtonUp("PrimaryFire"))
+                foreach (var l in _listeners)
+                    l.FireButtonReleased();
         }
     }
 }

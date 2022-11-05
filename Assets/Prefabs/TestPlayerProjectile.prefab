@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8553616663023682122}
   - component: {fileID: 5066819685617306127}
   - component: {fileID: 4144809621148244343}
-  m_Layer: 0
-  m_Name: Projectile
+  m_Layer: 8
+  m_Name: TestPlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,4 +137,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 10
-  rb2d: {fileID: 5066819685617306127}

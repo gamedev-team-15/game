@@ -1,11 +1,12 @@
 using System;
+using Interfaces;
 using ModVal;
 using UnityEngine;
 
 namespace Player
 {
     [Serializable]
-    public class PlayerMovement
+    public class PlayerMovement : IUpdatable
     {
         #region Varibles
 
@@ -32,6 +33,11 @@ namespace Player
             IsFacingRight = Math.Abs(direction.x) > 0.1f ? direction.x > 0 : IsFacingRight;
         }
 
+        public void Update(float deltaTime)
+        {
+            // Update ability cooldown
+        }
+        
         #endregion
     }
 }

@@ -9,20 +9,20 @@ namespace Player
         public Camera Camera { get; private set; }
         [SerializeField] private Vector3 offset = new(0f, 0f, -10f);
         [SerializeField] [Min(0.001f)] private float smoothSpeed = 0.125f;
+        [SerializeField] private bool look = false;
 
         private void Start()
         {
             Camera = gameObject.GetComponent<Camera>();
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             if(!target) return;
-            Vector3 targetPosition = target.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
-            transform.position = smoothedPosition;
+            transform.position = Vector3.Lerp(transform.position, target.position + offset, smoothSpeed);
 
-            transform.LookAt(target);
+            if(look)
+                transform.LookAt(target);
         }
     }
 }
