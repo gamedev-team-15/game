@@ -6,8 +6,8 @@ namespace Input
 {
     public interface IInputSystemListener
     {
-        public void MovementInput(Vector3 movementInput);
         public void FireButtonPressed();
         public void FireButtonReleased();
+        // TODO: Add support for abilities/actions(interactions)
     }
 }

@@ -135,10 +135,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 419627404, guid: 4904d3ece806f8946b9c6f3d59805f42, type: 3}
-      propertyPath: shooter.cooldown
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 801212664343505597, guid: 4904d3ece806f8946b9c6f3d59805f42, type: 3}
       propertyPath: m_Name
       value: World

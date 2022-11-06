@@ -1523,6 +1523,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4441810720717422946, guid: 23c95ef7680f9c346bfc883326adc896, type: 3}
+      propertyPath: shooter.cooldown
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441810720717422946, guid: 23c95ef7680f9c346bfc883326adc896, type: 3}
       propertyPath: shooter.projectile
       value: 
       objectReference: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}

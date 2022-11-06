@@ -79,6 +79,7 @@ namespace Player
         {
             _aimingDirection = (_mousePos - transform.position).normalized;
             _mousePos = _input.MousePosition;
+            _movementInput = _input.MovementInput;
             
             if(_fireButtonDown)
                 shooter.Shoot(_aimingDirection);
