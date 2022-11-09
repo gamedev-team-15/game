@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Input
+﻿namespace Input
 {
     public interface IInputSystemListener
     {
         public void FireButtonPressed();
         public void FireButtonReleased();
-        // TODO: Add support for abilities/actions(interactions)
+        public void Interact();
+        public void AbilityButtonPressed(int abilityId);
     }
 }

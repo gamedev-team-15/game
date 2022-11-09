@@ -10,7 +10,7 @@ namespace Player
     {
         [SerializeField] private Projectile.Projectile projectile;
         [SerializeField] [Min(0)] private float cooldown = 0.4f;
-        private float _timer = 0;
+        private float _timer;
         private Transform _muzzle;
 
         public void Shoot(Vector2 direction)

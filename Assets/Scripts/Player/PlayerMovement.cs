@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Player
 {
     [Serializable]
-    public class PlayerMovement : IUpdatable
+    public class PlayerMovement
     {
         #region Varibles
 
@@ -16,8 +16,6 @@ namespace Player
         public ModifiableValueFloat Speed => speed;
 
         #endregion
-        
-        // TODO: add movement abilities (dash, blink, etc.)
 
         #region Methods
 
@@ -34,11 +32,6 @@ namespace Player
             IsFacingRight = Math.Abs(direction.x) > 0.1f ? direction.x > 0 : IsFacingRight;
         }
 
-        public void Update(float deltaTime)
-        {
-            // Update ability cooldown
-        }
-        
         #endregion
     }
 }

@@ -11,17 +11,17 @@ namespace Player
         #region Variables
 
         [SerializeField] private PlayerMovement movement = new();
-        [SerializeField] private PlayerShooter shooter = new();
+        [SerializeField] private PlayerShooter weapon = new();
         
         public PlayerMovement Movement => movement;
-        public PlayerShooter Shooter => shooter;
+        public PlayerShooter Weapon => weapon;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
         private Vector3 _mousePos = Vector3.zero;
         private InputSystem _input;
-        private bool _fireButtonDown = false;
-        private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
+        private bool _fireButtonDown;
+        private readonly List<IUpdatable> _updatables = new();
 
         #endregion
 
@@ -51,17 +51,9 @@ namespace Player
             }
             _input.AddInputListener(this);
             
+            weapon.SetMuzzle(transform);
             
-            shooter.SetMuzzle(transform);
-            
-            
-            _updatables.Add(movement);
-            _updatables.Add(shooter);
-        }
-        
-        public void MovementInput(Vector3 movementInput)
-        {
-            _movementInput = movementInput;
+            _updatables.Add(weapon);
         }
 
         public void FireButtonPressed()
@@ -74,15 +66,25 @@ namespace Player
             _fireButtonDown = false;
         }
 
+        public void Interact()
+        {
+            // TODO: add interactions with objects
+        }
+
+        public void AbilityButtonPressed(int abilityId)
+        {
+            Debug.Log($"Pressed ability {abilityId}");
+        }
+
         // Do main actions here
         private void Update()
         {
-            _aimingDirection = (_mousePos - transform.position).normalized;
-            _mousePos = _input.MousePosition;
+            _aimingDirection = _input.UsingMouse ? (_mousePos - transform.position).normalized : _input.AimingDirection;
+            _mousePos = _input.CrosshairPosition;
             _movementInput = _input.MovementInput;
             
             if(_fireButtonDown)
-                shooter.Shoot(_aimingDirection);
+                weapon.Shoot(_aimingDirection);
 
             foreach (var updatable in _updatables)
                  updatable.Update(Time.deltaTime);
@@ -113,6 +115,9 @@ namespace Player
             Handles.Label(pos, "FacingRight: " + movement.IsFacingRight + "\nMovement info:\n" + movement.Speed);
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
+            if (!_input || _input.UsingMouse) return;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(pos, _input.AimingDirection * 2);
         }
 #endif
 
