@@ -110,7 +110,7 @@ namespace Player
             Gizmos.color = Color.red;
             Gizmos.DrawRay(pos, _movementInput);
             GUI.color = Gizmos.color;
-            Handles.Label(pos, "FacingRight: " + movement.IsFacingRight);
+            Handles.Label(pos, "FacingRight: " + movement.IsFacingRight + "\nMovement info:\n" + movement.Speed);
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
         }
