@@ -13,11 +13,13 @@ namespace Player
 
         [SerializeField] private PlayerMovement movement = new();
         [SerializeField] private PlayerShooter weapon = new();
-        private PlayerStats _stats = new();
+        private readonly PlayerStats _stats = new();
+        private readonly PlayerAbilities _abilities = new();
         
         public PlayerMovement Movement => movement;
         public PlayerShooter Weapon => weapon;
         public PlayerStats Stats => _stats;
+        public PlayerAbilities Abilities => _abilities;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -28,7 +30,8 @@ namespace Player
 
         #endregion
 
-        // TODO: and weapons, add health system, effects that modify player
+        // TODO: and weapons, add health system
+        // Abilities: in progress
 
         #region Methods
 
