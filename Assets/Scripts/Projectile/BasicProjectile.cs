@@ -16,6 +16,7 @@ namespace Projectile
 
         public void OnTriggerEnter2D(Collider2D col)
         {
+            if(col.usedByEffector) return;
             Debug.Log(col);
             Destroy(gameObject);
         }

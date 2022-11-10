@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
 using Input;
 using Interfaces;
+using Modifications;
 using UnityEditor;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour, IInputSystemListener
+    public class PlayerController : MonoBehaviour, IInputSystemListener, IModifiable
     {
         #region Variables
 
         [SerializeField] private PlayerMovement movement = new();
         [SerializeField] private PlayerShooter weapon = new();
+        private PlayerStats _stats = new();
         
         public PlayerMovement Movement => movement;
         public PlayerShooter Weapon => weapon;
+        public PlayerStats Stats => _stats;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -49,11 +52,14 @@ namespace Player
                 enabled = false;
                 return;
             }
+            
             _input.AddInputListener(this);
+            _stats.SetPlayer(this);
             
             weapon.SetMuzzle(transform);
             
             _updatables.Add(weapon);
+            _updatables.Add(_stats);
         }
 
         public void FireButtonPressed()
@@ -64,6 +70,11 @@ namespace Player
         public void FireButtonReleased()
         {
             _fireButtonDown = false;
+        }
+        
+        public void ApplyModifier(StatModifier modifier)
+        {
+            _stats.ApplyModifier(modifier);
         }
 
         public void Interact()

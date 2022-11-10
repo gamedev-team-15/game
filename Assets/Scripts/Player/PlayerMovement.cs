@@ -1,5 +1,4 @@
 using System;
-using Interfaces;
 using ModVal;
 using UnityEngine;
 
@@ -12,8 +11,8 @@ namespace Player
 
         public bool IsFacingRight { get; private set; } = true;
         public Rigidbody2D Rb2D { get; private set; }
-        [SerializeField] private ModifiableValueFloat speed = new(100);
-        public ModifiableValueFloat Speed => speed;
+        [SerializeField] private ModifiableValueInt speed = new(100);
+        public ModifiableValueInt Speed => speed;
 
         #endregion
 
