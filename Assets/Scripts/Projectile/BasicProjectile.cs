@@ -7,6 +7,7 @@ namespace Projectile
     {
         [SerializeField] private float force = 10f;
         private Rigidbody2D _rb2d;
+        [SerializeField] private int damage = 1;
 
         public override void Initialize()
         {
