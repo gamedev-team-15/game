@@ -44,9 +44,13 @@ public class EnemyTargeting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(target != null)
+        if(target)
         {
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 }

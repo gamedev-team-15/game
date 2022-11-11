@@ -21,24 +21,22 @@ namespace Projectile
 
         public void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Player")
+            if (col.usedByEffector) return;
+
+            foreach (var behaviour in col.gameObject.GetComponents<MonoBehaviour>())
             {
-                if (col.usedByEffector) return;
+                if (behaviour is IDamage d)
+                    d.ApplyDamage(Damage.Value);
 
-                foreach (var behaviour in col.gameObject.GetComponents<MonoBehaviour>())
-                {
-                    if (behaviour is IDamage d)
-                        d.ApplyDamage(Damage.Value);
-
-                    if (effect && behaviour is IEffect m)
-                        m.ApplyEffect(effect);
-                }
-
-                if (col.gameObject.TryGetComponent(out Rigidbody2D rb))
-                    rb.AddForce((col.gameObject.transform.position - transform.position).normalized * knockback, ForceMode2D.Impulse);
-
-                Destroy(gameObject);
+                if (effect && behaviour is IEffect m)
+                    m.ApplyEffect(effect);
             }
+
+            if (col.gameObject.TryGetComponent(out Rigidbody2D rb))
+                rb.AddForce((col.gameObject.transform.position - transform.position).normalized * knockback,
+                    ForceMode2D.Impulse);
+
+            Destroy(gameObject);
         }
 
         public override void Launch(Vector2 direction)
