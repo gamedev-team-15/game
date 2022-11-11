@@ -26,8 +26,13 @@ namespace Projectile
                 if (col.usedByEffector) return;
 
                 foreach (var behaviour in col.gameObject.GetComponents<MonoBehaviour>())
+                {
+                    if (behaviour is IDamage d)
+                        d.ApplyDamage(Damage.Value);
+
                     if (effect && behaviour is IEffect m)
                         m.ApplyEffect(effect);
+                }
 
                 if (col.gameObject.TryGetComponent(out Rigidbody2D rb))
                     rb.AddForce((col.gameObject.transform.position - transform.position).normalized * knockback, ForceMode2D.Impulse);
