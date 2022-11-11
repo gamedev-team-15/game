@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3e3e050e68e4b8fa73c027cfaee688b, type: 3}
-  m_Name: SpeedBoost
+  m_Name: SpeedBoost20
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 282c39ff9efa4f299c02bf63fe62a6f0, type: 3}
-  description: Increases movement speed by 40%
+  description: Increases movement speed by 20%
   modifier:
-    value: 40
+    value: 20
     type: 0
     modifierType: 1
     duration: 15

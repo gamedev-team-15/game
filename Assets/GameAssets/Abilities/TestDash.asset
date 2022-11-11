@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e3e050e68e4b8fa73c027cfaee688b, type: 3}
-  m_Name: Slow
+  m_Script: {fileID: 11500000, guid: 8365beecb6a944179638558783cb3e7a, type: 3}
+  m_Name: TestDash
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 282c39ff9efa4f299c02bf63fe62a6f0, type: 3}
-  description: Slows movement speed by 5%
-  modifier:
-    value: -5
-    type: 0
-    modifierType: 1
-    duration: 5
+  icon: {fileID: 21300000, guid: 9125c204f566db048a92ebcb64d9d14a, type: 3}
+  description: Dash in movement direction
+  dash:
+    cooldown: 3
+    force: 10

@@ -6,7 +6,7 @@ namespace Modifications
 {
     public abstract class StatSystem : IUpdatable, IEffect
     {
-        protected class StatModifierContainer : IUpdatable
+        private class StatModifierContainer : IUpdatable
         {
             public StatModifier Modifier { get; }
             private float _timer;

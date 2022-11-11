@@ -2,13 +2,12 @@
 using GameAssets;
 using Input;
 using Interfaces;
-using Modifications;
 using UnityEditor;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour, IInputSystemListener, IEffect
+    public class PlayerController : MonoBehaviour, IInputSystemListener, IEffect, IPlayerConfigLoader
     {
         #region Variables
 
@@ -20,7 +19,7 @@ namespace Player
         public PlayerMovement Movement => movement;
         public PlayerShooter Weapon => weapon;
         public PlayerStats Stats => _stats;
-        public PlayerAbilities Abilitsies => _abilities;
+        public PlayerAbilities Abilities => _abilities;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -59,11 +58,13 @@ namespace Player
             
             _input.AddInputListener(this);
             _stats.SetPlayer(this);
+            _abilities.SetPlayer(this);
             
             weapon.SetMuzzle(transform);
             
             _updatables.Add(weapon);
             _updatables.Add(_stats);
+            _updatables.Add(_abilities);
         }
 
         public void FireButtonPressed()
@@ -88,7 +89,14 @@ namespace Player
 
         public void AbilityButtonPressed(int abilityId)
         {
-            Debug.Log($"Pressed ability {abilityId}");
+            _abilities.ActivateAbility(abilityId);
+        }
+        
+        
+        public void LoadConfig(PlayerConfig config)
+        {
+            movement.LoadConfig(config);
+            _abilities.LoadConfig(config);
         }
 
         // Do main actions here

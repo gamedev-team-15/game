@@ -1,11 +1,13 @@
 using System;
+using GameAssets;
+using Interfaces;
 using ModVal;
 using UnityEngine;
 
 namespace Player
 {
     [Serializable]
-    public class PlayerMovement
+    public class PlayerMovement : IPlayerConfigLoader
     {
         #region Varibles
 
@@ -32,5 +34,12 @@ namespace Player
         }
 
         #endregion
+
+        public void LoadConfig(PlayerConfig config)
+        {
+            speed.ClearModifiers();
+            speed = new ModifiableValueInt(config.Speed);
+            speed.ClearModifiers();
+        }
     }
 }

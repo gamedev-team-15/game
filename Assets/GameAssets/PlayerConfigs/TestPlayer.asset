@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e3e050e68e4b8fa73c027cfaee688b, type: 3}
-  m_Name: Slow
+  m_Script: {fileID: 11500000, guid: 71a138b9c16044d09da12feee77fef88, type: 3}
+  m_Name: TestPlayer
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 282c39ff9efa4f299c02bf63fe62a6f0, type: 3}
-  description: Slows movement speed by 5%
-  modifier:
-    value: -5
-    type: 0
-    modifierType: 1
-    duration: 5
+  description: Editor test player
+  speed: 280
+  maxHealth: 80
+  abilities:
+  - {fileID: 11400000, guid: 73dff6f5b5cf083468d5464b5d5094e1, type: 2}
+  - {fileID: 11400000, guid: 4630592e74551ca4c9fbd7d8b1a2d4b4, type: 2}
