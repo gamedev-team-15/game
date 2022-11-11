@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameAssets;
 using Input;
 using Interfaces;
 using Modifications;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour, IInputSystemListener, IModifiable
+    public class PlayerController : MonoBehaviour, IInputSystemListener, IEffect
     {
         #region Variables
 
@@ -19,7 +20,7 @@ namespace Player
         public PlayerMovement Movement => movement;
         public PlayerShooter Weapon => weapon;
         public PlayerStats Stats => _stats;
-        public PlayerAbilities Abilities => _abilities;
+        public PlayerAbilities Abilitsies => _abilities;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -75,9 +76,9 @@ namespace Player
             _fireButtonDown = false;
         }
         
-        public void ApplyModifier(StatModifier modifier)
+        public void ApplyEffect(StatusEffect effect)
         {
-            _stats.ApplyModifier(modifier);
+            _stats.ApplyEffect(effect);
         }
 
         public void Interact()
@@ -126,7 +127,7 @@ namespace Player
             Gizmos.color = Color.red;
             Gizmos.DrawRay(pos, _movementInput);
             GUI.color = Gizmos.color;
-            Handles.Label(pos, "FacingRight: " + movement.IsFacingRight + "\nMovement info:\n" + movement.Speed);
+            Handles.Label(pos, "FacingRight: " + movement.IsFacingRight + $"\nMovement info:\nBase: {Movement.Speed.BaseValue}\nCurrent: {Movement.Speed.Value}");
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
             if (!_input || _input.UsingMouse) return;

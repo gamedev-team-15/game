@@ -133,12 +133,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2292473238164731261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23828d7452e7a7d468823ca25d232668, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d0ff600d1e44260af612f4bbd70e119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 15
-  knockback: 5
-  _statModifier:
-    value: -20
-    type: 0
-    duration: 3
+  damage:
+    baseValue: 10
+  force: 10
+  knockback: 3
+  effect: {fileID: 11400000, guid: fa490a1c3a8365afeadaefb5b214ae3d, type: 2}

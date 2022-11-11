@@ -1,6 +1,6 @@
 ﻿namespace AbilitySystem
 {
-    public class Ability
+    public abstract class Ability
     {
         
     }

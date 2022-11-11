@@ -11,7 +11,7 @@ namespace Player
 
         public bool IsFacingRight { get; private set; } = true;
         public Rigidbody2D Rb2D { get; private set; }
-        [SerializeField] private ModifiableValueInt speed = new(100);
+        [SerializeField] private ModifiableValueInt speed = new(300);
         public ModifiableValueInt Speed => speed;
 
         #endregion

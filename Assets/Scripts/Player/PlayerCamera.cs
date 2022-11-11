@@ -14,6 +14,8 @@ namespace Player
         private void Start()
         {
             Camera = gameObject.GetComponent<Camera>();
+            if (!target)
+                target = FindObjectOfType<PlayerController>().transform;
         }
 
         private void FixedUpdate()

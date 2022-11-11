@@ -1,16 +1,17 @@
+using GameAssets;
 using Player;
 using Modifications;
 using UnityEngine;
 
 public class TmpModEff : MonoBehaviour
 {
-    [SerializeField] protected StatModifier tempStatModifier;
+    [SerializeField] private StatusEffect effect;
     
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.TryGetComponent(out PlayerController p))
         {
-            p.ApplyModifier(tempStatModifier);
+            p.ApplyEffect(effect);
         }
     }
 }

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using GameAssets;
 using Interfaces;
 
 namespace Modifications
 {
-    public abstract class StatSystem : IUpdatable, IModifiable
+    public abstract class StatSystem : IUpdatable, IEffect
     {
         protected class StatModifierContainer : IUpdatable
         {
@@ -36,10 +37,10 @@ namespace Modifications
             });
         }
 
-        public void ApplyModifier(StatModifier modifier)
+        public void ApplyEffect(StatusEffect effect)
         {
-            _modifiers.Add(new StatModifierContainer(modifier));
-            Apply(modifier);
+            _modifiers.Add(new StatModifierContainer(effect.Modifier));
+            Apply(effect.Modifier);
         }
 
         protected abstract void Apply(StatModifier modifier);
