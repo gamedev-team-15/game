@@ -11,6 +11,7 @@ namespace Projectile
         [SerializeField] private float knockback;
         [SerializeField] private StatusEffect effect;
         private Rigidbody2D _rb2d;
+        [SerializeField] private int damage = 1;
 
         public override void Initialize()
         {
