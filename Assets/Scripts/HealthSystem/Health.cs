@@ -10,7 +10,13 @@ namespace HealthSystem
         [SerializeField]
         private int maxHealth;
         public float HealthPercent => (float)health / maxHealth;
-        public int currentHealth => health;
+        public int CurrentHealth => health;
+        public int MaxHealth => maxHealth;
+
+        public void SetHealth(int hp)
+        {
+            health = Math.Clamp(hp, 0, maxHealth);
+        }
         public void ApplyDamage(int damage)
         {
             health -= damage;
