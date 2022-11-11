@@ -5,6 +5,7 @@
 - [x] Player movement - Ready
 - [x] Health system - Ready
 - [x] Player controller - Ready
+- [ ] Basic Enemies - WIP
 - [ ] Player shooting system - WIP working alongside with weapon system
 - [ ] Projectile system - WIP 80%
 - [ ] Abilities - WIP, basic abilities ready
