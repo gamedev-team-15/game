@@ -9,19 +9,21 @@ namespace Player
         public Camera Camera { get; private set; }
         [SerializeField] private Vector3 offset = new(0f, 0f, -10f);
         [SerializeField] [Min(0.001f)] private float smoothSpeed = 0.125f;
-        [SerializeField] private bool look = false;
+        [SerializeField] private bool look;
 
         private void Start()
         {
             Camera = gameObject.GetComponent<Camera>();
+            if (!target)
+                target = FindObjectOfType<PlayerController>().transform;
         }
 
         private void FixedUpdate()
         {
-            if(!target) return;
+            if (!target) return;
             transform.position = Vector3.Lerp(transform.position, target.position + offset, smoothSpeed);
 
-            if(look)
+            if (look)
                 transform.LookAt(target);
         }
     }

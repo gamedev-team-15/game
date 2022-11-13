@@ -213,7 +213,7 @@ MonoBehaviour:
   movement:
     speed:
       baseValue: 100
-  shooter:
+  weapon:
     projectile: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}
     cooldown: 0.4
 --- !u!50 &6095832914115711391

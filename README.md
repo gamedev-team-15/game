@@ -1,11 +1,18 @@
-﻿# Game project of team 15
+# Game project of team 15
 
 ## TODO:
-- [ ] Add description - WIP
+- [x] Input system - Ready
 - [x] Player movement - Ready
-- [ ] Player shooting system - WIP
-- [ ] Projectile system - WIP
-- [ ] Weapon system
-- [ ] Health system
+- [x] Health system - Ready
+- [x] Player controller - Ready
+- [x] Player shooting system - Ready
+- [x] Weapon system - Ready
+- [ ] Projectile system - WIP 80%
+- [ ] Basic Enemies - WIP
+- [ ] Abilities - WIP, basic abilities ready
+- [ ] UI - WIP
+- [ ] Map generation - WIP
+- [ ] Graphics
+- [ ] Mobile(touch) input system
 
 ### _TBD..._

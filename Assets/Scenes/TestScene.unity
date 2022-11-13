@@ -310,6 +310,94 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443328666, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030505759, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030505759, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.30400002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.89800006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -30.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165449856, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710477194, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710477194, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912700476, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5587790890289002609, guid: 3c9645860ff2f2249b2c9d574b65b29e, type: 3}
       propertyPath: m_Name
       value: UI

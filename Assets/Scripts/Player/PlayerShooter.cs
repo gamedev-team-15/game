@@ -8,14 +8,14 @@ namespace Player
     [Serializable]
     public class PlayerShooter : IUpdatable
     {
-        [SerializeField] private Projectile.Projectile projectile;
+        [SerializeField] private Projectile.Projectile2D projectile;
         [SerializeField] [Min(0)] private float cooldown = 0.4f;
-        private float _timer = 0;
+        private float _timer;
         private Transform _muzzle;
 
         public void Shoot(Vector2 direction)
         {
-            if(_timer > 0) return;
+            if (_timer > 0) return;
             var project = Object.Instantiate(projectile, _muzzle.position, _muzzle.rotation);
             project.Initialize();
             project.Launch(direction);
