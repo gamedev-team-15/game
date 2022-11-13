@@ -91,10 +91,10 @@ namespace Player
                 _timer = Data.Weapon.Cooldown;
             }
 
-            private IEnumerator StartShooting(Transform muzzle, ProxyVelocity velocity)
+            private IEnumerator StartShooting(Transform muzzle, IValueProvider<Vector2> velocity)
             {
                 _isReady = false;
-                yield return Data.Weapon.Shoot(muzzle, new Proxy<Vector2>(velocity));
+                yield return Data.Weapon.Shoot(muzzle, velocity);
                 _isReady = true;
             }
         }

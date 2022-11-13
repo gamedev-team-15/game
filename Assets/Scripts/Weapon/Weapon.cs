@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using Interfaces;
 using UnityEngine;
-using Utils;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -29,12 +29,12 @@ namespace Weapon
             return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
         }
 
-        private IEnumerator Burst(Transform muzzle, Proxy<Vector2> velocity)
+        private IEnumerator Burst(Transform muzzle, IValueProvider<Vector2> velocity)
         {
             for (int i = 0; i < bulletsPerShot; i++)
             {
                 var prj = Object.Instantiate(projectile, muzzle.position, muzzle.rotation);
-                prj.Initialize(velocity.Value);
+                prj.Initialize(velocity.GetValue());
                 prj.Launch(RotateVector(muzzle.right, Random.Range(-spread / 2, spread / 2)));
                 yield return new WaitForSeconds(burstCooldown);
             }
@@ -42,14 +42,14 @@ namespace Weapon
             yield return null;
         }
 
-        private IEnumerator Shotgun(Transform muzzle, Proxy<Vector2> velocity)
+        private IEnumerator Shotgun(Transform muzzle, IValueProvider<Vector2> velocity)
         {
             var sDir = RotateVector(muzzle.right, -spread / 2);
             
             for (int i = 0; i < bulletsPerShot; i++)
             {
-                var prj = Object.Instantiate(projectile, muzzle.position, muzzle.rotation);;
-                prj.Initialize(velocity.Value);
+                var prj = Object.Instantiate(projectile, muzzle.position, muzzle.rotation);
+                prj.Initialize(velocity.GetValue());
                 prj.Launch(sDir);
                 sDir = RotateVector(sDir, spread / bulletsPerShot);
             }
@@ -57,7 +57,7 @@ namespace Weapon
             yield return null;
         }
 
-        public IEnumerator Shoot(Transform muzzle, Proxy<Vector2> velocity)
+        public IEnumerator Shoot(Transform muzzle, IValueProvider<Vector2> velocity)
         {
             switch (fireMode)
             {

@@ -2,9 +2,9 @@ using GameAssets;
 using Player;
 using UnityEngine;
 
-namespace Editor
+namespace Core
 {
-    public class Loader : MonoBehaviour
+    public class Bootloader : MonoBehaviour
     {
         [SerializeField] private PlayerConfig config;
         private void Awake()

@@ -1,3 +1,4 @@
+using Core;
 using GameAssets;
 using Interfaces;
 using UnityEngine;
@@ -27,7 +28,10 @@ namespace Projectile
             foreach (var behaviour in col.gameObject.GetComponents<MonoBehaviour>())
             {
                 if (behaviour is IDamage d)
+                {
                     d.ApplyDamage(Damage.Value);
+                    RuntimeManager.Utils.CreateTextPopup(transform.position, Damage.Value.ToString(), 100, Vector3.up);
+                }
 
                 if (effect && behaviour is IEffect m)
                     m.ApplyEffect(effect);

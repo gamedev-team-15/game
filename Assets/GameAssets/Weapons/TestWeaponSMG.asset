@@ -18,8 +18,8 @@ MonoBehaviour:
   muzzleOffset: {x: 0, y: 0.1, z: 0}
   weapon:
     projectile: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}
-    cooldown: 0.5
-    burstCooldown: 0.02
+    cooldown: 0.6
+    burstCooldown: 0.04
     bulletsPerShot: 6
     spread: 20
     recoil: 0
