@@ -17,15 +17,15 @@ namespace Modifications
                 Modifier = modifier;
                 _timer = modifier.Duration;
             }
-            
+
             public void Update(float deltaTime)
             {
                 _timer -= deltaTime;
             }
         }
-        
+
         private readonly List<StatModifierContainer> _modifiers = new();
-        
+
         public void Update(float deltaTime)
         {
             _modifiers.RemoveAll(val =>

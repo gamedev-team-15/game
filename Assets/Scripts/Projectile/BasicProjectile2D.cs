@@ -5,17 +5,18 @@ using UnityEngine;
 namespace Projectile
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class BasicProjectile : Projectile
+    public class BasicProjectile2D : Projectile2D
     {
         [SerializeField] private float force = 10f;
         [SerializeField] private float knockback;
         [SerializeField] private StatusEffect effect;
         private Rigidbody2D _rb2d;
 
-        public override void Initialize()
+        public override void Initialize(Vector2 initialVelocity)
         {
             Damage.ClearModifiers();
             _rb2d = transform.GetComponent<Rigidbody2D>();
+            _rb2d.velocity = initialVelocity;
             Destroy(gameObject, LifeTime);
         }
 

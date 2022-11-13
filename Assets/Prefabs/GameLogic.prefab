@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2699338195118380449}
   - component: {fileID: 148546587}
+  - component: {fileID: 2059315475}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: GameController
@@ -44,3 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e56b71f3ef247c5854656217900e48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2059315475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2699338195118380448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11704a303577bee4ab36541e34a557ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 5c179027616b5b2439de7885c5a56d57, type: 2}

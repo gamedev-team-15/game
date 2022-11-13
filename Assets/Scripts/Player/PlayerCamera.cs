@@ -20,10 +20,10 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if(!target) return;
+            if (!target) return;
             transform.position = Vector3.Lerp(transform.position, target.position + offset, smoothSpeed);
 
-            if(look)
+            if (look)
                 transform.LookAt(target);
         }
     }

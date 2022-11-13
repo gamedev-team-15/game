@@ -6,7 +6,7 @@ namespace Player
     public class PlayerStats : StatSystem
     {
         private PlayerController _player;
-        
+
         public void SetPlayer(PlayerController player)
         {
             _player = player;
@@ -14,7 +14,7 @@ namespace Player
 
         protected override void Apply(StatModifier modifier)
         {
-            switch(modifier.Type)
+            switch (modifier.Type)
             {
                 case StatType.Movement:
                     _player.Movement.Speed.AddModifier(modifier.ValueModifier);
@@ -34,7 +34,7 @@ namespace Player
 
         protected override void Remove(StatModifier modifier)
         {
-            switch(modifier.Type)
+            switch (modifier.Type)
             {
                 case StatType.Movement:
                     _player.Movement.Speed.RemoveModifier(modifier.ValueModifier);

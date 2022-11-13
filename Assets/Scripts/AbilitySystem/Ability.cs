@@ -8,7 +8,7 @@ namespace AbilitySystem
     {
         [SerializeField] private float cooldown;
         public float Cooldown => cooldown;
-        
+
         public abstract void Activate();
     }
 }

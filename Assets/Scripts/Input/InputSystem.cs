@@ -18,8 +18,8 @@ namespace Input
         public Vector3 CrosshairPosition => InternalCrosshairPosition;
         public Vector3 AimingDirection => InternalAimingDirection;
         public bool UsingMouse => UnityEngine.Input.mousePresent;
-        
-        
+
+
         public void AddInputListener(IInputSystemListener listener)
         {
             Listeners.Add(listener);
@@ -29,7 +29,7 @@ namespace Input
         {
             Listeners.Remove(listener);
         }
-        
+
         private void Awake()
         {
             Camera = Camera.main;

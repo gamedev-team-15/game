@@ -7,7 +7,7 @@ namespace GameAssets
     public class PlayerEffectAbilityData : PlayerAbilityData
     {
         [SerializeField] private PlayerEffectAbility ability;
-        
+
         protected override PlayerAbility GetAbility()
         {
             return ability;

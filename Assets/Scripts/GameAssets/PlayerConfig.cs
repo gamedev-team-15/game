@@ -8,7 +8,8 @@ namespace GameAssets
     {
         [SerializeField] private int speed = 300;
         [SerializeField] private int maxHealth = 100;
-        [SerializeField] private PlayerAbilityData[] abilities = {};
+        [SerializeField] private PlayerAbilityData[] abilities = { };
+
         [SerializeField] private WeaponData defaultWeapon;
         // TODO: mana(stamina)
 

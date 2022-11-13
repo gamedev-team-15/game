@@ -7,7 +7,7 @@ namespace GameAssets
     public class PlayerDashData : PlayerAbilityData
     {
         [SerializeField] private PlayerDash dash;
-        
+
         protected override PlayerAbility GetAbility()
         {
             return dash;

@@ -15,12 +15,12 @@ namespace Player
         private readonly PlayerStats _stats = new();
         private readonly PlayerAbilities _abilities = new();
         private readonly PlayerWeapons _weapons = new();
-        
+
         public PlayerMovement Movement => movement;
         public PlayerStats Stats => _stats;
         public PlayerAbilities Abilities => _abilities;
         public PlayerWeapons Weapons => _weapons;
-        
+
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
         private Vector3 _mousePos = Vector3.zero;
@@ -46,7 +46,7 @@ namespace Player
 
             // Set up movement
             movement.SetRigidbody(rb2d);
-            
+
             // Register input listener
             _input = FindObjectOfType<InputSystem>();
             if (_input is null)
@@ -55,13 +55,13 @@ namespace Player
                 enabled = false;
                 return;
             }
-            
+
             _input.AddInputListener(this);
-            
+
             _stats.SetPlayer(this);
             _abilities.SetPlayer(this);
             _weapons.SetPlayer(this);
-            
+
             _updatables.Add(_weapons);
             _updatables.Add(_stats);
             _updatables.Add(_abilities);
@@ -76,7 +76,7 @@ namespace Player
         {
             _fireButtonDown = false;
         }
-        
+
         public void ApplyEffect(StatusEffect effect)
         {
             _stats.ApplyEffect(effect);
@@ -91,8 +91,8 @@ namespace Player
         {
             _abilities.ActivateAbility(abilityId);
         }
-        
-        
+
+
         public void LoadConfig(PlayerConfig config)
         {
             movement.LoadConfig(config);
@@ -108,12 +108,12 @@ namespace Player
             _movementInput = _input.MovementInput;
 
             _weapons.SetDirection(_aimingDirection);
-            
-            if(_fireButtonDown)
+
+            if (_fireButtonDown)
                 _weapons.Shoot();
 
             foreach (var updatable in _updatables)
-                 updatable.Update(Time.deltaTime);
+                updatable.Update(Time.deltaTime);
         }
 
         // Process physics-related stuff
@@ -138,9 +138,12 @@ namespace Player
             Gizmos.color = Color.red;
             Gizmos.DrawRay(pos, _movementInput);
             GUI.color = Gizmos.color;
-            Handles.Label(pos, "FacingRight: " + movement.IsFacingRight + $"\nMovement info:\nBase: {Movement.Speed.BaseValue}\nCurrent: {Movement.Speed.Value}");
+            Handles.Label(pos,
+                "FacingRight: " + movement.IsFacingRight +
+                $"\nMovement info:\nBase: {Movement.Speed.BaseValue}\nCurrent: {Movement.Speed.Value}");
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
+
             if (!_input || _input.UsingMouse) return;
             Gizmos.color = Color.cyan;
             Gizmos.DrawRay(pos, _input.AimingDirection * 2);

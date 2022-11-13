@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestShooter : MonoBehaviour
 {
-    [SerializeField] private Projectile.Projectile p;
+    [SerializeField] private Projectile.Projectile2D p;
     [SerializeField] private float interval = 0.5f;
     private float _timer = 0;
     

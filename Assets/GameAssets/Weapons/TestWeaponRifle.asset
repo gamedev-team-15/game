@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 282c39ff9efa4f299c02bf63fe62a6f0, type: 3}
   description: 
-  sprite: {fileID: 21300000, guid: 999a872b2c34be9c68699d25f7787ae9, type: 3}
+  sprite: {fileID: 21300000, guid: c99464cffb5ebf44f95f06ffd7bed228, type: 3}
   muzzleOffset: {x: 0, y: 0.1, z: 0}
   weapon:
     projectile: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}
-    cooldown: 0.1
+    cooldown: 0.15
+    burstCooldown: 0
     bulletsPerShot: 1
-    spread: 0
+    spread: 10
     recoil: 0
     fireMode: 1

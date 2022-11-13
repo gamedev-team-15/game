@@ -11,7 +11,7 @@ namespace Modifications
         [SerializeField] private StatType type;
         [SerializeField] private ModifierType modifierType;
         [SerializeField] private float duration;
-        
+
         public int Value => value;
         public StatType Type => type;
         public float Duration => duration;

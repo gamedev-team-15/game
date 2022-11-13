@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using GameAssets;
 using Interfaces;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
@@ -13,6 +13,7 @@ namespace Player
         private Transform _weaponMuzzle;
         private SpriteRenderer _weaponRenderer;
         private WeaponContainer _activeWeapon;
+        private ProxyVelocity _proxyVelocity;
 
         private void SetUp()
         {
@@ -25,14 +26,14 @@ namespace Player
             weaponRendererTransform.position = new Vector3(0.4f, -0.1f, 0);
             _weaponMuzzle = new GameObject("GunMuzzle").transform;
             _weaponMuzzle.parent = weaponRendererTransform;
-            _weaponMuzzle.position = Vector3.zero;
+            _weaponMuzzle.localPosition = Vector3.zero;
         }
-        
+
         public void Shoot()
         {
-            _activeWeapon.Shoot(_player,_weaponMuzzle.position, _weaponMuzzle.right);
+            _activeWeapon.Shoot(_player, _weaponMuzzle, _proxyVelocity);
         }
-        
+
         public void Update(float deltaTime)
         {
             _activeWeapon.Update(deltaTime);
@@ -40,10 +41,15 @@ namespace Player
 
         public void LoadConfig(PlayerConfig config)
         {
-            _activeWeapon = new WeaponContainer(config.DefaultWeapon);
+            PickUpWeapon(config.DefaultWeapon);
+        }
+
+        public void PickUpWeapon(WeaponData weapon)
+        {
             SetUp();
-            _weaponRenderer.sprite = config.DefaultWeapon.Sprite;
-            _weaponMuzzle.position = config.DefaultWeapon.MuzzleOffset;
+            _activeWeapon = new WeaponContainer(weapon);
+            _weaponRenderer.sprite = weapon.Sprite;
+            _weaponMuzzle.localPosition = weapon.MuzzleOffset;
         }
 
         public void SetPlayer(PlayerController player)
@@ -51,6 +57,7 @@ namespace Player
             _player = player;
             SetUp();
             _weaponTransform.parent = player.transform;
+            _proxyVelocity = new ProxyVelocity(_player.Movement.Rb2D);
         }
 
         public void SetDirection(Vector2 aimingDirection)
@@ -58,36 +65,36 @@ namespace Player
             _weaponTransform.right = aimingDirection;
             _weaponRenderer.flipY = aimingDirection.x < 0;
         }
-        
+
         private class WeaponContainer : IUpdatable
         {
             public WeaponData Data { get; }
             private float _timer;
             private bool _isReady;
-            
+
             public WeaponContainer(WeaponData data)
             {
                 Data = data;
                 _isReady = true;
             }
-            
+
             public void Update(float deltaTime)
             {
-                if(_isReady)
+                if (_isReady)
                     _timer -= deltaTime;
             }
 
-            public void Shoot(MonoBehaviour mono, Vector2 position, Vector2 direction)
+            public void Shoot(MonoBehaviour mono, Transform muzzle, ProxyVelocity velocity)
             {
                 if (_timer > 0 || !_isReady) return;
-                mono.StartCoroutine(StartShooting(position, direction));
+                mono.StartCoroutine(StartShooting(muzzle, velocity));
                 _timer = Data.Weapon.Cooldown;
             }
 
-            private IEnumerator StartShooting(Vector2 position, Vector2 direction)
+            private IEnumerator StartShooting(Transform muzzle, ProxyVelocity velocity)
             {
                 _isReady = false;
-                yield return Data.Weapon.Shoot(position, direction);
+                yield return Data.Weapon.Shoot(muzzle, new Proxy<Vector2>(velocity));
                 _isReady = true;
             }
         }

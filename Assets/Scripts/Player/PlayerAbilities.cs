@@ -47,7 +47,7 @@ namespace Player
                 _abilityContainers.Add(new AbilityContainer(abilityData));
             }
         }
-        
+
         public class AbilityContainer : IUpdatable
         {
             public PlayerAbilityData AbilityData { get; }

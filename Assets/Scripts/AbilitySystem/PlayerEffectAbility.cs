@@ -9,7 +9,7 @@ namespace AbilitySystem
     {
         [SerializeField] private StatusEffect effect;
         public StatusEffect Effect => effect;
-        
+
         public override void Activate()
         {
             Player.ApplyEffect(effect);
