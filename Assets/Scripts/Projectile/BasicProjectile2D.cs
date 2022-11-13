@@ -30,7 +30,7 @@ namespace Projectile
                 if (behaviour is IDamage d)
                 {
                     d.ApplyDamage(Damage.Value);
-                    RuntimeManager.Utils.CreateTextPopup(transform.position, Damage.Value.ToString(), 100, Vector3.up);
+                    RuntimeManager.Utils.CreateTextPopup(transform.position, Damage.Value.ToString(), 1, Vector3.up);
                 }
 
                 if (effect && behaviour is IEffect m)

@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Core.Utils
 {
@@ -33,18 +32,18 @@ namespace Core.Utils
                 popup.StartCoroutine(FadeOut(popup, fadeTime, velocity));
         }
 
-        private static IEnumerator FadeOut(TMP_Text popup, float time, Vector3 velocity)
+        private static IEnumerator FadeOut(TMP_Text popup, float timeMS, Vector3 velocity)
         {
-            var delta = 1f / time;
-            while (time > 0)
+            var delta = 1f / timeMS;
+            var endOfFrame = new WaitForEndOfFrame();
+            while (popup.alpha > 0)
             {
-                popup.alpha -= delta;
+                popup.alpha -= Time.deltaTime * delta;
                 popup.transform.Translate(velocity * Time.deltaTime);
-                yield return null;
-                time -= Time.deltaTime;
+                yield return endOfFrame;
             }
             yield return null;
-            Object.Destroy(popup);
+            Object.Destroy(popup.gameObject);
         }
     }
 }
