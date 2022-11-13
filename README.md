@@ -1,15 +1,15 @@
-﻿# Game project of team 15
+# Game project of team 15
 
 ## TODO:
 - [x] Input system - Ready
 - [x] Player movement - Ready
 - [x] Health system - Ready
 - [x] Player controller - Ready
-- [ ] Basic Enemies - WIP
-- [ ] Player shooting system - WIP working alongside with weapon system
+- [x] Player shooting system - Ready
+- [x] Weapon system - Ready
 - [ ] Projectile system - WIP 80%
+- [ ] Basic Enemies - WIP
 - [ ] Abilities - WIP, basic abilities ready
-- [ ] Weapon system - WIP
 - [ ] UI - WIP
 - [ ] Map generation - WIP
 - [ ] Graphics
