@@ -12,14 +12,14 @@ namespace Player
         #region Variables
 
         [SerializeField] private PlayerMovement movement = new();
-        [SerializeField] private PlayerShooter weapon = new();
         private readonly PlayerStats _stats = new();
         private readonly PlayerAbilities _abilities = new();
+        private readonly PlayerWeapons _weapons = new();
         
         public PlayerMovement Movement => movement;
-        public PlayerShooter Weapon => weapon;
         public PlayerStats Stats => _stats;
         public PlayerAbilities Abilities => _abilities;
+        public PlayerWeapons Weapons => _weapons;
         
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -57,12 +57,12 @@ namespace Player
             }
             
             _input.AddInputListener(this);
+            
             _stats.SetPlayer(this);
             _abilities.SetPlayer(this);
+            _weapons.SetPlayer(this);
             
-            weapon.SetMuzzle(transform);
-            
-            _updatables.Add(weapon);
+            _updatables.Add(_weapons);
             _updatables.Add(_stats);
             _updatables.Add(_abilities);
         }
@@ -97,17 +97,20 @@ namespace Player
         {
             movement.LoadConfig(config);
             _abilities.LoadConfig(config);
+            _weapons.LoadConfig(config);
         }
 
         // Do main actions here
         private void Update()
         {
-            _aimingDirection = _input.UsingMouse ? (_mousePos - transform.position).normalized : _input.AimingDirection;
             _mousePos = _input.CrosshairPosition;
+            _aimingDirection = _input.UsingMouse ? (_mousePos - transform.position).normalized : _input.AimingDirection;
             _movementInput = _input.MovementInput;
+
+            _weapons.SetDirection(_aimingDirection);
             
             if(_fireButtonDown)
-                weapon.Shoot(_aimingDirection);
+                _weapons.Shoot();
 
             foreach (var updatable in _updatables)
                  updatable.Update(Time.deltaTime);

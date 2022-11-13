@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7ea4c589544d018ac7f443e890af50, type: 3}
+  m_Name: TestWeaponBurstRifle
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 282c39ff9efa4f299c02bf63fe62a6f0, type: 3}
+  description: 
+  sprite: {fileID: 21300000, guid: 999a872b2c34be9c68699d25f7787ae9, type: 3}
+  muzzleOffset: {x: 0, y: 0.1, z: 0}
+  weapon:
+    projectile: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}
+    cooldown: 1
+    bulletsPerShot: 5
+    spread: 0
+    recoil: 0
+    fireMode: 0

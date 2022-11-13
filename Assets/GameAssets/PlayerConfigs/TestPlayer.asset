@@ -19,3 +19,4 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 73dff6f5b5cf083468d5464b5d5094e1, type: 2}
   - {fileID: 11400000, guid: 4630592e74551ca4c9fbd7d8b1a2d4b4, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: 68913aa490f0b7b2fa62d6bb1d47d370, type: 2}

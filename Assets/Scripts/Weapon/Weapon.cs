@@ -1,121 +1,74 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Weapon
 {
-    public class Weapon : MonoBehaviour
+    [Serializable]
+    public class Weapon
     {
-        
         [SerializeField] private Projectile.Projectile projectile;
-        [SerializeField] [Min(0)] private float cooldown;
-        [SerializeField] [Min(1)] private int burstCount;
-        [SerializeField] [Min(0)] private float burstInterval;
-        [SerializeField] [Min(1)] private int shotgunBulletCount;
-        private float _timer;
-        private bool shooting;
-        public Transform _shotPoint;
-        [SerializeField] FireMode fireMode = FireMode.Auto;
-        private const int spread = 40;
+        [SerializeField] [Min(0)] private float cooldown = 0.5f;
+        [SerializeField] [Min(1)] private int bulletsPerShot = 1;
+        [SerializeField] [Range(0, 360)] private float spread;
+        [SerializeField] [Min(0)] private float recoil;
+        [SerializeField] private FireMode fireMode = FireMode.Auto;
 
-        private Vector2 vectorAngle(Vector2 direction)
+        public float Cooldown => cooldown;
+        public float Recoil => recoil;
+
+        private Vector2 RotateVector(Vector2 v, float angle)
         {
-            float x = direction.x;
-            float y = direction.y;
-
-            float angle = (spread / 4) * Mathf.Deg2Rad;
-            float cos = Mathf.Cos(angle);
-            float sin = Mathf.Sin (angle);
-
-            float x2 = x * cos - y * sin;
-            float y2 = x * sin + y * cos;
-            Vector2 direction2 = new Vector2(x2,y2);
-            
-            return direction2;
+            angle *= Mathf.Deg2Rad;
+            var cos = Mathf.Cos(angle);
+            var sin = Mathf.Sin (angle);
+            return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
         }
-        private Vector2 vectorRotator(Vector2 direction)
+        
+        private IEnumerator Burst(Vector2 position, Vector2 direction)
         {
-            float x = direction.x;
-            float y = direction.y;
-
-            float angle = (-spread / shotgunBulletCount) * Mathf.Deg2Rad;
-            float cos = Mathf.Cos(angle);
-            float sin = Mathf.Sin (angle);
-
-            float x2 = x * cos - y * sin;
-            float y2 = x * sin + y * cos;
-            Vector2 direction2 = new Vector2(x2,y2);
-            
-            return direction2;
-        }
-
-        private IEnumerator burst(Vector2 direction)
-        {
-            shooting = true;
-            for (int i = 0; i < burstCount; i++)
+            for (int i = 0; i < bulletsPerShot; i++)
             {
-                var project = Object.Instantiate(projectile, _shotPoint.position, _shotPoint.rotation);
+                var project = Object.Instantiate(projectile);
+                projectile.transform.position = position;
                 project.Initialize();
                 project.Launch(direction);
-                yield return new WaitForSeconds(burstInterval);
+                yield return new WaitForSeconds(0.1f);
             }
-            shooting = false;
             yield return null;
         }
 
-        private void shotgun (Vector2 direction)
+        private IEnumerator Shotgun(Vector2 position, Vector2 direction)
         {
-            Vector2 directionTempo = direction;
-            //vectorAngle(direction);
-            for (int i = 0; i < shotgunBulletCount; i++)
+            var sDir = RotateVector(direction, -spread / 2);
+            for (int i = 0; i < bulletsPerShot; i++)
             {
-                var project = Object.Instantiate(projectile, _shotPoint.position, _shotPoint.rotation);
-                project.Initialize();
-                if (i == 0)
-                {
-                    vectorAngle(direction);
-                    directionTempo = vectorAngle(direction);
-                }
-                else
-                {
-                    vectorRotator(directionTempo);
-                    directionTempo = vectorRotator(directionTempo);
-                }
-                project.Launch(vectorAngle(directionTempo));
-
-                
+                var prj = Object.Instantiate(projectile);
+                prj.transform.position = position;
+                prj.Initialize();
+                Debug.Log(sDir);
+                prj.Launch(sDir);
+                sDir = RotateVector(sDir, spread / bulletsPerShot);
             }
+            yield return null;
         }
         
         
         
-        public void Shoot(Vector2 direction)
+        public IEnumerator Shoot(Vector2 position, Vector2 direction)
         {
-            if(_timer > 0 || shooting) return;
             switch (fireMode)
             {
-                case FireMode.Burst:
-                case FireMode.Auto:
-                    StartCoroutine(burst(direction));
+                case FireMode.Burst or FireMode.Auto:
+                {
+                    yield return Burst(position, direction);
                     break;
+                }
                 case FireMode.Shotgun:
-                    shotgun(direction);
+                    yield return Shotgun(position, direction);
                     break;
             }
-            _timer = cooldown;
         }
-
-        public void SetShotPoint(Transform shotPoint)
-        {
-            _shotPoint = shotPoint;
-        }
-        
-        public void Update()
-        {
-            if (!shooting)
-            {
-                _timer -= Time.deltaTime;
-            }
-        }
-
     }
 }
