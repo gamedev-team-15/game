@@ -16,17 +16,18 @@ namespace Core.Utils
             _textPopupBase.sortingOrder++;
             _textPopupBase.alignment = TextAlignmentOptions.Center;
         }
-        
-        
-        public void CreateTextPopup(Vector3 position, string text, float fadeTime = -1)
+
+        public void CreateTextPopup(Vector3 position, string text, float fontSize = 12, float fadeTime = 1)
         {
-            CreateTextPopup(position, text, fadeTime, Vector3.zero);
+            CreateTextPopup(position, text, Vector3.up, Color.white, fontSize, fadeTime);
         }
 
-        public void CreateTextPopup(Vector3 position, string text, float fadeTime, Vector3 velocity)
+        public void CreateTextPopup(Vector3 position, string text, Vector3 velocity, Color color, float fontSize = 12, float fadeTime = 1)
         {
             var popup = Object.Instantiate(_textPopupBase);
             popup.transform.position = position;
+            popup.fontSize = fontSize;
+            popup.color = color;
             popup.text = text;
             if (fadeTime > 0)
                 popup.StartCoroutine(FadeOut(popup, fadeTime, velocity));

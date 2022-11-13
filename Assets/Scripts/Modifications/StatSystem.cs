@@ -18,6 +18,16 @@ namespace Modifications
                 _timer = modifier.Duration;
             }
 
+            public override bool Equals(object obj)
+            {
+                return obj is StatModifierContainer con && Modifier.Equals(con.Modifier);
+            }
+
+            public override int GetHashCode()
+            {
+                return Modifier.GetHashCode();
+            }
+
             public void Update(float deltaTime)
             {
                 _timer -= deltaTime;
@@ -39,6 +49,8 @@ namespace Modifications
 
         public void ApplyEffect(StatusEffect effect)
         {
+            var container = new StatModifierContainer(effect.Modifier);
+            if(!effect.Stackable && _modifiers.Contains(container)) return;
             _modifiers.Add(new StatModifierContainer(effect.Modifier));
             Apply(effect.Modifier);
         }

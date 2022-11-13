@@ -1,5 +1,5 @@
-using System;
 using Interfaces;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,5 +36,15 @@ namespace HealthSystem
             onHeal.Invoke();
             health.ApplyHeal(hp);
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            var pos = transform.position;
+            GUI.color = Gizmos.color;
+            Handles.Label(pos,
+                $"Health: {health.CurrentHealth}/{health.MaxHealth}");
+        }
+#endif
     }
 }

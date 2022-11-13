@@ -50,8 +50,15 @@ namespace Weapon
             {
                 var prj = Object.Instantiate(projectile, muzzle.position, muzzle.rotation);
                 prj.Initialize(velocity.GetValue());
-                prj.Launch(sDir);
-                sDir = RotateVector(sDir, spread / bulletsPerShot);
+                if (fireMode == FireMode.Shotgun)
+                {
+                    prj.Launch(sDir);
+                    sDir = RotateVector(sDir, spread / bulletsPerShot);
+                }
+                else
+                {
+                    prj.Launch(RotateVector(muzzle.right, Random.Range(-spread / 2, spread / 2)));
+                }
             }
             
             yield return null;
@@ -64,7 +71,7 @@ namespace Weapon
                 case FireMode.Burst or FireMode.Auto:
                     yield return Burst(muzzle, velocity);
                     break;
-                case FireMode.Shotgun:
+                case FireMode.Shotgun or FireMode.RandomizedShotgun:
                     yield return Shotgun(muzzle, velocity);
                     break;
             }

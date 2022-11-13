@@ -1,53 +1,45 @@
 using UnityEngine;
 
-public class EnemyTargeting : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] public float speed = 3f;
-    Rigidbody2D rb;
-    Vector2 moveDirection;
-    private Transform target;
-
-    private void Awake()
+    public class EnemyTargeting : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        [SerializeField] public float speed = 3f;
+        private Rigidbody2D _rb;
+        private Vector2 _moveDirection;
+        private Transform _target;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
+        private void Awake()
         {
-            target = other.transform;
+            _rb = GetComponent<Rigidbody2D>();
+            _rb.drag = 1;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            target = null;
+            if (other.gameObject.CompareTag("Player"))
+                _target = other.transform;
         }
-    }
 
-    void Update()
-    {
-        if (target != null)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rb.rotation = angle;
-            moveDirection = direction;
+            if (other.gameObject.CompareTag("Player"))
+                _target = null;
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (target)
+        private void Update()
         {
-            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+            if (!_target) return;
+            var direction = (_target.position - transform.position).normalized;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            _rb.rotation = angle;
+            _moveDirection = direction;
         }
-        else
+
+        private void FixedUpdate()
         {
-            rb.velocity = Vector2.zero;
+            if (_target)
+                _rb.AddForce(new Vector2(_moveDirection.x, _moveDirection.y) * speed);
         }
     }
 }

@@ -3,7 +3,8 @@ namespace Weapon
     public enum FireMode {
         Burst,
         Auto,
-        Shotgun
+        Shotgun,
+        RandomizedShotgun
     }
 }
 

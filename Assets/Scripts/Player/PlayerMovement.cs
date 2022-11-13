@@ -6,15 +6,14 @@ using UnityEngine;
 
 namespace Player
 {
-    [Serializable]
     public class PlayerMovement : IPlayerConfigLoader
     {
         #region Varibles
 
         public bool IsFacingRight { get; private set; } = true;
         public Rigidbody2D Rb2D { get; private set; }
-        [SerializeField] private ModifiableValueInt speed = new(300);
-        public ModifiableValueInt Speed => speed;
+        private ModifiableValueInt _speed = new(300);
+        public ModifiableValueInt Speed => _speed;
 
         #endregion
 
@@ -23,13 +22,13 @@ namespace Player
         public void SetRigidbody(Rigidbody2D rb2d)
         {
             Rb2D = rb2d ? rb2d : throw new ArgumentNullException(nameof(rb2d), "Rigidbody cannot be null");
-            speed.ClearModifiers();
+            _speed.ClearModifiers();
         }
 
         public void Move(Vector2 direction)
         {
-            Rb2D.AddForce(direction * (speed.Value * Time.deltaTime * Rb2D.drag));
-            Rb2D.velocity = Vector2.ClampMagnitude(Rb2D.velocity, speed.Value * 10);
+            Rb2D.AddForce(direction * (_speed.Value * Time.deltaTime * Rb2D.drag));
+            Rb2D.velocity = Vector2.ClampMagnitude(Rb2D.velocity, _speed.Value * 10);
             IsFacingRight = Math.Abs(direction.x) > 0.1f ? direction.x > 0 : IsFacingRight;
         }
 
@@ -37,9 +36,9 @@ namespace Player
 
         public void LoadConfig(PlayerConfig config)
         {
-            speed.ClearModifiers();
-            speed = new ModifiableValueInt(config.Speed);
-            speed.ClearModifiers();
+            _speed.ClearModifiers();
+            _speed = new ModifiableValueInt(config.Speed);
+            _speed.ClearModifiers();
         }
     }
 }

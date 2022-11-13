@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core;
 using GameAssets;
 using Input;
 using Interfaces;
@@ -7,19 +8,21 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour, IInputSystemListener, IEffect, IPlayerConfigLoader
+    public class PlayerController : GameEntity, IInputSystemListener, IEffect, IPlayerConfigLoader, IDamage, IHeal
     {
         #region Variables
 
-        [SerializeField] private PlayerMovement movement = new();
+        private readonly PlayerMovement _movement = new();
         private readonly PlayerStats _stats = new();
         private readonly PlayerAbilities _abilities = new();
         private readonly PlayerWeapons _weapons = new();
+        private readonly PlayerHealth _health = new();
 
-        public PlayerMovement Movement => movement;
+        public PlayerMovement Movement => _movement;
         public PlayerStats Stats => _stats;
         public PlayerAbilities Abilities => _abilities;
         public PlayerWeapons Weapons => _weapons;
+        public PlayerHealth Health => _health;
 
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -45,7 +48,7 @@ namespace Player
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             // Set up movement
-            movement.SetRigidbody(rb2d);
+            _movement.SetRigidbody(rb2d);
 
             // Register input listener
             _input = FindObjectOfType<InputSystem>();
@@ -91,13 +94,23 @@ namespace Player
         {
             _abilities.ActivateAbility(abilityId);
         }
+        
+        public void ApplyDamage(int damage)
+        {
+            _health.ApplyDamage(damage);
+        }
 
-
+        public void ApplyHeal(int hp)
+        {
+            _health.ApplyHeal(hp);
+        }
+        
         public void LoadConfig(PlayerConfig config)
         {
-            movement.LoadConfig(config);
+            _movement.LoadConfig(config);
             _abilities.LoadConfig(config);
             _weapons.LoadConfig(config);
+            _health.LoadConfig(config);
         }
 
         // Do main actions here
@@ -119,7 +132,7 @@ namespace Player
         // Process physics-related stuff
         private void FixedUpdate()
         {
-            movement.Move(_movementInput);
+            _movement.Move(_movementInput);
         }
 
         private void OnDestroy()
@@ -139,7 +152,8 @@ namespace Player
             Gizmos.DrawRay(pos, _movementInput);
             GUI.color = Gizmos.color;
             Handles.Label(pos,
-                "FacingRight: " + movement.IsFacingRight +
+                "FacingRight: " + _movement.IsFacingRight +
+                $"\nHealth: {_health.CurrentHealth}/{_health.MaxHealth}" +
                 $"\nMovement info:\nBase: {Movement.Speed.BaseValue}\nCurrent: {Movement.Speed.Value}");
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
