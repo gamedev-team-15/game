@@ -11,16 +11,18 @@ namespace Editor
 
         private void Start()
         {
-            if (!weapon)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            SetWeapon(weapon);
+        }
+
+        public void SetWeapon(WeaponData weaponData)
+        {
+            weapon = weaponData;
             gameObject.GetComponent<SpriteRenderer>().sprite = weapon.Sprite;
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
+            if(!weapon) return;
             if(col.gameObject.TryGetComponent(out PlayerController c))
                 c.Weapons.PickUpWeapon(weapon);
         }

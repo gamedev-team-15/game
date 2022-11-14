@@ -47,7 +47,7 @@ namespace Player
         public void PickUpWeapon(WeaponData weapon)
         {
             SetUp();
-            _activeWeapon = new WeaponContainer(weapon);
+            _activeWeapon = new WeaponContainer(this, weapon);
             _weaponRenderer.sprite = weapon.Sprite;
             _weaponMuzzle.localPosition = weapon.MuzzleOffset;
         }
@@ -68,13 +68,15 @@ namespace Player
 
         private class WeaponContainer : IUpdatable
         {
-            public WeaponData Data { get; }
+            private readonly WeaponData _data;
+            private readonly PlayerWeapons _weapons;
             private float _timer;
             private bool _isReady;
 
-            public WeaponContainer(WeaponData data)
+            public WeaponContainer(PlayerWeapons weapons, WeaponData data)
             {
-                Data = data;
+                _data = data;
+                _weapons = weapons;
                 _isReady = true;
             }
 
@@ -88,13 +90,14 @@ namespace Player
             {
                 if (_timer > 0 || !_isReady) return;
                 mono.StartCoroutine(StartShooting(muzzle, velocity));
-                _timer = Data.Weapon.Cooldown;
+                _timer = _data.Weapon.Cooldown;
             }
 
             private IEnumerator StartShooting(Transform muzzle, IValueProvider<Vector2> velocity)
             {
                 _isReady = false;
-                yield return Data.Weapon.Shoot(muzzle, velocity);
+                yield return _data.Weapon.Shoot(muzzle, velocity);
+                _weapons._player.Movement.Rb2D.AddForce(-muzzle.right * _data.Weapon.Recoil, ForceMode2D.Impulse);
                 _isReady = true;
             }
         }

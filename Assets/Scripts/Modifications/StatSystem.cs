@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GameAssets;
 using Interfaces;
@@ -6,52 +7,67 @@ namespace Modifications
 {
     public abstract class StatSystem : IUpdatable, IEffect
     {
-        private class StatModifierContainer : IUpdatable
+        public class StatModifierContainer : IUpdatable
         {
-            public StatModifier Modifier { get; }
+            public StatusEffect Effect { get; }
             private float _timer;
             public bool Ended => _timer <= 0;
+            public float RemainingTime => Math.Max(0, _timer / Effect.Modifier.Duration);
 
-            public StatModifierContainer(StatModifier modifier)
+            public StatModifierContainer(StatusEffect effect)
             {
-                Modifier = modifier;
-                _timer = modifier.Duration;
+                Effect = effect;
+                _timer = effect.Modifier.Duration;
             }
 
             public override bool Equals(object obj)
             {
-                return obj is StatModifierContainer con && Modifier.Equals(con.Modifier);
+                return obj is StatModifierContainer con && Effect.Equals(con.Effect);
             }
 
             public override int GetHashCode()
             {
-                return Modifier.GetHashCode();
+                return Effect.GetHashCode();
             }
 
             public void Update(float deltaTime)
             {
                 _timer -= deltaTime;
             }
+
+            public void Reset()
+            {
+                _timer = Effect.Modifier.Duration;
+            }
         }
 
         private readonly List<StatModifierContainer> _modifiers = new();
+        public IEnumerable<StatModifierContainer> Modifiers => _modifiers;
 
         public void Update(float deltaTime)
         {
             _modifiers.RemoveAll(val =>
             {
                 val.Update(deltaTime);
-                if (val.Modifier.Infinite || !val.Ended) return false;
-                Remove(val.Modifier);
+                if (val.Effect.Modifier.Infinite || !val.Ended) return false;
+                Remove(val.Effect.Modifier);
                 return true;
             });
         }
 
         public void ApplyEffect(StatusEffect effect)
         {
-            var container = new StatModifierContainer(effect.Modifier);
-            if(!effect.Stackable && _modifiers.Contains(container)) return;
-            _modifiers.Add(new StatModifierContainer(effect.Modifier));
+            var container = new StatModifierContainer(effect);
+            if (!effect.Stackable)
+            {
+                int mod = _modifiers.IndexOf(container);
+                if (mod > -1)
+                {
+                    _modifiers[mod].Reset();
+                    return;
+                }
+            }
+            _modifiers.Add(container);
             Apply(effect.Modifier);
         }
 

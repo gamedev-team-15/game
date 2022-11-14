@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
+using Utils;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -62,6 +63,11 @@ namespace Weapon
             }
             
             yield return null;
+        }
+        
+        public IEnumerator Shoot(Transform muzzle)
+        {
+            return Shoot(muzzle, new ConstantValueProvider<Vector2>(Vector2.zero));
         }
 
         public IEnumerator Shoot(Transform muzzle, IValueProvider<Vector2> velocity)

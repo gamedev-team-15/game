@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameAssets;
 using Interfaces;
 
@@ -48,10 +49,11 @@ namespace Player
             }
         }
 
-        public class AbilityContainer : IUpdatable
+        public class AbilityContainer : IUpdatable, IValueProvider<float>
         {
             public PlayerAbilityData AbilityData { get; }
             private float _timer;
+            public float CooldownPercent => Math.Max(0, 1 - _timer / AbilityData.Ability.Cooldown);
 
             public AbilityContainer(PlayerAbilityData ability)
             {
@@ -69,6 +71,11 @@ namespace Player
                 if (_timer > 0) return;
                 AbilityData.Ability.Activate();
                 _timer = AbilityData.Ability.Cooldown;
+            }
+
+            public float GetValue()
+            {
+                return CooldownPercent;
             }
         }
     }
