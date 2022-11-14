@@ -1,25 +1,28 @@
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
     public class PlayerUI : MonoBehaviour
     {
         private PlayerController _player;
-        [SerializeField] private GameObject effectsContainer;
-        [SerializeField] private GameObject abilitiesContainer;
+        [SerializeField] private RectTransform effectsContainer;
+        [SerializeField] private RectTransform abilitiesContainer;
         [SerializeField] private FIcon fIconPrefab;
+        [SerializeField] private Slider healthBar;
 
         private const int MaxEffectIcons = 20;
-        private List<FIcon> _effectIcons = new(MaxEffectIcons);
+        private readonly List<FIcon> _playerAbilities = new();
+        private readonly List<FIcon> _effectIcons = new(MaxEffectIcons);
 
         
         private void Start()
         {
             _player = FindObjectOfType<PlayerController>();
-            foreach (var ability in _player.Abilities.AbilityContainers)
-                Instantiate(fIconPrefab, abilitiesContainer.transform).AttachData(new FIcon.FIconData(ability.AbilityData.Icon, ability));
+            foreach (var unused in _player.Abilities.AbilityContainers)
+                _playerAbilities.Add(Instantiate(fIconPrefab, abilitiesContainer.transform));
             for(int i = 0; i < MaxEffectIcons; i++)
             {
                 var fi = Instantiate(fIconPrefab, effectsContainer.transform);
@@ -40,12 +43,20 @@ namespace UI
                 if(i >= MaxEffectIcons) break;
                 var fi = _effectIcons[i];
                 _effectIcons[i].gameObject.SetActive(true);
-                fi.SetFill(modifier.RemainingTime);
-                fi.SetIcon(modifier.Effect.Icon);
+                fi.FillAmount = modifier.RemainingTime;
+                fi.Icon = modifier.Effect.Icon;
                 i++;
             }
             for(; i < MaxEffectIcons; i++)
                 _effectIcons[i].gameObject.SetActive(false);
+            i = 0;
+            foreach (var ability in _player.Abilities.AbilityContainers)
+            {
+                _playerAbilities[i].Icon = ability.AbilityData.Icon;
+                _playerAbilities[i].FillAmount = ability.CooldownPercent;
+                i++;
+            }
+            healthBar.value = _player.Health.HealthPercent;
         }
     }
 }

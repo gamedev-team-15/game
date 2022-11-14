@@ -11,6 +11,7 @@ namespace Player
         public int MaxHealth => _maxHealth.Value;
         private int _currentHealth = 100;
         public int CurrentHealth => _currentHealth;
+        public float HealthPercent => (float)_currentHealth / _maxHealth.Value;
         
         public void ApplyDamage(int damage)
         {

@@ -60,10 +60,11 @@ namespace Player
             _proxyVelocity = new ProxyVelocity(_player.Movement.Rb2D);
         }
 
+        private static readonly Vector3 FlippedVector = new(180, 0, 0);
         public void SetDirection(Vector2 aimingDirection)
         {
             _weaponTransform.right = aimingDirection;
-            _weaponRenderer.flipY = aimingDirection.x < 0;
+            _weaponRenderer.transform.localEulerAngles = aimingDirection.x > 0 ? Vector3.zero :  FlippedVector;
         }
 
         private class WeaponContainer : IUpdatable

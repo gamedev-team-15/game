@@ -12,17 +12,12 @@ namespace Player
     {
         #region Variables
 
-        private readonly PlayerMovement _movement = new();
-        private readonly PlayerStats _stats = new();
-        private readonly PlayerAbilities _abilities = new();
-        private readonly PlayerWeapons _weapons = new();
-        private readonly PlayerHealth _health = new();
-
-        public PlayerMovement Movement => _movement;
-        public PlayerStats Stats => _stats;
-        public PlayerAbilities Abilities => _abilities;
-        public PlayerWeapons Weapons => _weapons;
-        public PlayerHealth Health => _health;
+        public PlayerMovement Movement { get; } = new();
+        public PlayerStats Stats { get; } = new();
+        public PlayerAbilities Abilities { get; } = new();
+        public PlayerWeapons Weapons { get; } = new();
+        public PlayerHealth Health { get; } = new();
+        public PlayerEvents Events { get; } = new();
 
         private Vector2 _movementInput = Vector2.zero;
         private Vector2 _aimingDirection = Vector2.right;
@@ -32,9 +27,6 @@ namespace Player
         private readonly List<IUpdatable> _updatables = new();
 
         #endregion
-
-        // TODO: and weapons, add health system
-        // Abilities: in progress
 
         #region Methods
 
@@ -48,7 +40,7 @@ namespace Player
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             // Set up movement
-            _movement.SetRigidbody(rb2d);
+            Movement.SetRigidbody(rb2d);
 
             // Register input listener
             _input = FindObjectOfType<InputSystem>();
@@ -61,13 +53,13 @@ namespace Player
 
             _input.AddInputListener(this);
 
-            _stats.SetPlayer(this);
-            _abilities.SetPlayer(this);
-            _weapons.SetPlayer(this);
+            Stats.SetPlayer(this);
+            Abilities.SetPlayer(this);
+            Weapons.SetPlayer(this);
 
-            _updatables.Add(_weapons);
-            _updatables.Add(_stats);
-            _updatables.Add(_abilities);
+            _updatables.Add(Weapons);
+            _updatables.Add(Stats);
+            _updatables.Add(Abilities);
         }
 
         public void FireButtonPressed()
@@ -82,35 +74,38 @@ namespace Player
 
         public void ApplyEffect(StatusEffect effect)
         {
-            _stats.ApplyEffect(effect);
+            Stats.ApplyEffect(effect);
         }
 
         public void Interact()
         {
             // TODO: add interactions with objects
+            Events.OnPlayerInteract.Invoke();
         }
 
         public void AbilityButtonPressed(int abilityId)
         {
-            _abilities.ActivateAbility(abilityId);
+            Abilities.ActivateAbility(abilityId);
         }
         
         public void ApplyDamage(int damage)
         {
-            _health.ApplyDamage(damage);
+            Health.ApplyDamage(damage);
+            if(Health.CurrentHealth <= 0)
+                Events.OnPlayerDeath.Invoke();
         }
 
         public void ApplyHeal(int hp)
         {
-            _health.ApplyHeal(hp);
+            Health.ApplyHeal(hp);
         }
         
         public void LoadConfig(PlayerConfig config)
         {
-            _movement.LoadConfig(config);
-            _abilities.LoadConfig(config);
-            _weapons.LoadConfig(config);
-            _health.LoadConfig(config);
+            Movement.LoadConfig(config);
+            Abilities.LoadConfig(config);
+            Weapons.LoadConfig(config);
+            Health.LoadConfig(config);
         }
 
         // Do main actions here
@@ -120,10 +115,10 @@ namespace Player
             _aimingDirection = _input.UsingMouse ? (_mousePos - transform.position).normalized : _input.AimingDirection;
             _movementInput = _input.MovementInput;
 
-            _weapons.SetDirection(_aimingDirection);
+            Weapons.SetDirection(_aimingDirection);
 
             if (_fireButtonDown)
-                _weapons.Shoot();
+                Weapons.Shoot();
 
             foreach (var updatable in _updatables)
                 updatable.Update(Time.deltaTime);
@@ -132,7 +127,7 @@ namespace Player
         // Process physics-related stuff
         private void FixedUpdate()
         {
-            _movement.Move(_movementInput);
+            Movement.Move(_movementInput);
         }
 
         private void OnDestroy()
@@ -152,8 +147,8 @@ namespace Player
             Gizmos.DrawRay(pos, _movementInput);
             GUI.color = Gizmos.color;
             Handles.Label(pos,
-                "FacingRight: " + _movement.IsFacingRight +
-                $"\nHealth: {_health.CurrentHealth}/{_health.MaxHealth}" +
+                "FacingRight: " + Movement.IsFacingRight +
+                $"\nHealth: {Health.CurrentHealth}/{Health.MaxHealth}" +
                 $"\nMovement info:\nBase: {Movement.Speed.BaseValue}\nCurrent: {Movement.Speed.Value}");
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(pos, _aimingDirection * 2);
