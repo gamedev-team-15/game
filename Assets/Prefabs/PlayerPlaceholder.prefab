@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6095832914115711391}
   m_Layer: 6
   m_Name: PlayerPlaceholder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,12 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577646251dff4748bb9b9935dac09b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement:
-    speed:
-      baseValue: 100
-  weapon:
-    projectile: {fileID: 4144809621148244343, guid: c24e9ca48f43341be8f0c430d8053ef0, type: 3}
-    cooldown: 0.4
 --- !u!50 &6095832914115711391
 Rigidbody2D:
   serializedVersion: 4

@@ -11,7 +11,6 @@ namespace GameAssets
         [SerializeField] private PlayerAbilityData[] abilities = { };
 
         [SerializeField] private WeaponData defaultWeapon;
-        // TODO: mana(stamina)
 
         public int Speed => speed;
         public int MaxHealth => maxHealth;

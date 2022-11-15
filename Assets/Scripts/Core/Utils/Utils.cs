@@ -10,19 +10,19 @@ namespace Core.Utils
 
         public Utils()
         {
-            _textPopupBase = new GameObject("tPB").AddComponent<TextMeshPro>();
+            _textPopupBase = new GameObject("TextPopup").AddComponent<TextMeshPro>();
             _textPopupBase.transform.position = new Vector3(0, 0, 0);
             _textPopupBase.fontSize = 10;
-            _textPopupBase.sortingOrder++;
+            _textPopupBase.sortingOrder = 100;
             _textPopupBase.alignment = TextAlignmentOptions.Center;
         }
 
-        public void CreateTextPopup(Vector3 position, string text, float fontSize = 12, float fadeTime = 1)
+        public TextMeshPro CreateTextPopup(Vector3 position, string text, float fontSize = 12, float fadeTime = 1)
         {
-            CreateTextPopup(position, text, Vector3.up, Color.white, fontSize, fadeTime);
+            return CreateTextPopup(position, text, Vector3.up, Color.white, fontSize, fadeTime);
         }
 
-        public void CreateTextPopup(Vector3 position, string text, Vector3 velocity, Color color, float fontSize = 12, float fadeTime = 1)
+        public TextMeshPro CreateTextPopup(Vector3 position, string text, Vector3 velocity, Color color, float fontSize = 12, float fadeTime = 1)
         {
             var popup = Object.Instantiate(_textPopupBase);
             popup.transform.position = position;
@@ -31,6 +31,7 @@ namespace Core.Utils
             popup.text = text;
             if (fadeTime > 0)
                 popup.StartCoroutine(FadeOut(popup, fadeTime, velocity));
+            return popup;
         }
 
         private static IEnumerator FadeOut(TMP_Text popup, float timeMS, Vector3 velocity)

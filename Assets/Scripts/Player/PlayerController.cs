@@ -12,6 +12,7 @@ namespace Player
     {
         #region Variables
 
+        // All player sub-components
         public PlayerMovement Movement { get; } = new();
         public PlayerStats Stats { get; } = new();
         public PlayerAbilities Abilities { get; } = new();
@@ -79,7 +80,6 @@ namespace Player
 
         public void Interact()
         {
-            // TODO: add interactions with objects
             Events.OnPlayerInteract.Invoke();
         }
 

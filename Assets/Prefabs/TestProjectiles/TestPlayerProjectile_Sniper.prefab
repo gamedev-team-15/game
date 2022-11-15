@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 2292473238164731261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.7890244, y: 29.218184, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.4, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -141,3 +141,4 @@ MonoBehaviour:
   force: 32
   knockback: 5
   effect: {fileID: 0}
+  piercingPower: 3

@@ -7,11 +7,12 @@ namespace HealthSystem
 {
     public class HealthComponent : MonoBehaviour, IDamage, IHeal
     {
-        [SerializeField] private Health health;
+        [SerializeField] private Health health = new(100);
         [SerializeField] private UnityEvent onDamage;
         [SerializeField] private UnityEvent onHeal;
         [SerializeField] private UnityEvent onDeath;
 
+        public Health Health => health;
         public UnityEvent OnDamage => onDamage;
         public UnityEvent OnHeal => onHeal;
         public UnityEvent OnDeath => onDeath;

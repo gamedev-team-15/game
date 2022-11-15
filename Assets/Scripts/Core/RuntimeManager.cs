@@ -3,34 +3,34 @@ using UnityEngine;
 
 namespace Core
 {
-    public class RuntimeManager : MonoBehaviour
+    public static class RuntimeManager
     {
-        public static RuntimeManager Instance { get; private set; }
         public static Utils.Utils Utils { private set; get; }
-        [SerializeField] private bool editMode = true;
-        private PlayerController _player;
+        private static bool _testMode = true;
+        private static PlayerController _player;
 
-        private void Start()
+        public static void Initialize(bool testMode)
         {
-            if (Instance)
-            {
-                Destroy(this);
-                return;
-            }
-            Instance = this;
+            _testMode = testMode;
             Utils = new Utils.Utils();
-            _player = FindObjectOfType<PlayerController>();
-            _player.Events.OnPlayerDeath.AddListener(PlayerDeathHandler);
+            _player = Object.FindObjectOfType<PlayerController>();
+            if (_testMode)
+                _player.Events.OnPlayerDeath.AddListener(TestModePlayerDeathHandler);
+            else
+                _player.Events.OnPlayerDeath.AddListener(PlayerDeathHandler);
         }
 
-        private void PlayerDeathHandler()
+        private static void TestModePlayerDeathHandler()
         {
-            if (editMode)
-            {
-                var activeConfig = FindObjectOfType<Bootloader>().LoadedPlayerConfig;
-                _player.transform.position = Vector3.zero;
-                _player.LoadConfig(activeConfig);
-            }
+            var activeConfig = Object.FindObjectOfType<Bootloader>().LoadedPlayerPlayerConfig;
+            _player.transform.position = Vector3.zero;
+            _player.LoadConfig(activeConfig);
+        }
+
+        private static void PlayerDeathHandler()
+        {
+            // TODO: create player death handler for non-test game mode
+            throw new System.NotImplementedException();
         }
     }
 }

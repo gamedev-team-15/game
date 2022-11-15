@@ -6,14 +6,24 @@ namespace Core
 {
     public class Bootloader : MonoBehaviour
     {
-        [SerializeField] private PlayerConfig config;
-        public PlayerConfig LoadedPlayerConfig => config;
+        [SerializeField] private PlayerConfig playerConfig;
+        public PlayerConfig LoadedPlayerPlayerConfig => playerConfig;
+        [SerializeField] private bool testMode = true;
+        
+        public static Bootloader Instance { private set; get; }
         
         private void Awake()
         {
+            if (Instance)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+            RuntimeManager.Initialize(testMode);
             var player = FindObjectOfType<PlayerController>();
             if(player)
-                player.LoadConfig(config);
+                player.LoadConfig(playerConfig);
         }
     }
 }

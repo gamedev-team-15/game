@@ -13,6 +13,11 @@ namespace HealthSystem
         public int CurrentHealth => health;
         public int MaxHealth => maxHealth;
 
+        public Health(int maxHp)
+        {
+            health = maxHealth = maxHp;
+        }
+
         public void SetHealth(int hp)
         {
             health = Math.Clamp(hp, 0, maxHealth);
