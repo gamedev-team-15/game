@@ -6,30 +6,29 @@ namespace HealthSystem
     [Serializable]
     public class Health : Interfaces.IDamage, Interfaces.IHeal
     {
-        private int health;
-        [SerializeField]
-        private int maxHealth;
-        public float HealthPercent => (float)health / maxHealth;
-        public int CurrentHealth => health;
+        private int _health;
+        [SerializeField] private int maxHealth;
+        public float HealthPercent => (float)_health / maxHealth;
+        public int CurrentHealth => _health;
         public int MaxHealth => maxHealth;
 
         public Health(int maxHp)
         {
-            health = maxHealth = maxHp;
+            _health = maxHealth = maxHp;
         }
 
         public void SetHealth(int hp)
         {
-            health = Math.Clamp(hp, 0, maxHealth);
+            _health = Math.Clamp(hp, 0, maxHealth);
         }
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int value)
         {
-            health -= damage;
+            _health -= value;
         }
 
-        public void ApplyHeal(int hp)
+        public void ApplyHeal(int value)
         {
-            health = Math.Min(maxHealth, health + hp);
+            _health = Math.Min(maxHealth, _health + value);
         }
     }
 }

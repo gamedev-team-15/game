@@ -25,6 +25,12 @@ namespace ModVal
             UpdateValue();
         }
 
+        public void AddModifiers(IEnumerable<ValueModifier<T>> modifiers)
+        {
+            Modifiers.AddRange(modifiers);
+            UpdateValue();
+        }
+
         public bool HasModifier(ValueModifier<T> modifier)
         {
             return Modifiers.Contains(modifier);

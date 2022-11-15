@@ -142,3 +142,5 @@ MonoBehaviour:
   knockback: 3
   effect: {fileID: 0}
   piercingPower: 1
+  hitParticles: {fileID: 3000745994298477181, guid: 12ce2126b76df6c4c8d2388a620cee2a, type: 3}
+  hitSound: {fileID: 0}

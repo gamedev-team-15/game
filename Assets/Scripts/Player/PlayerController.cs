@@ -88,20 +88,21 @@ namespace Player
             Abilities.ActivateAbility(abilityId);
         }
         
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int value)
         {
-            Health.ApplyDamage(damage);
+            Health.ApplyDamage(value);
             if(Health.CurrentHealth <= 0)
                 Events.OnPlayerDeath.Invoke();
         }
 
-        public void ApplyHeal(int hp)
+        public void ApplyHeal(int value)
         {
-            Health.ApplyHeal(hp);
+            Health.ApplyHeal(value);
         }
         
         public void LoadConfig(PlayerConfig config)
         {
+            Stats.Clear();
             Movement.LoadConfig(config);
             Abilities.LoadConfig(config);
             Weapons.LoadConfig(config);

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using GameAssets;
 using Interfaces;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Player
         private SpriteRenderer _weaponRenderer;
         private WeaponContainer _activeWeapon;
         private ProxyVelocity _proxyVelocity;
+
+        public readonly List<ModVal.ValueModifier<int>> DamageModifiers = new();
 
         private void SetUp()
         {
@@ -41,6 +44,7 @@ namespace Player
 
         public void LoadConfig(PlayerConfig config)
         {
+            DamageModifiers.Clear();
             PickUpWeapon(config.DefaultWeapon);
         }
 
@@ -97,8 +101,17 @@ namespace Player
             private IEnumerator StartShooting(Transform muzzle, IValueProvider<Vector2> velocity)
             {
                 _isReady = false;
-                yield return _data.Weapon.Shoot(muzzle, velocity);
-                _weapons._player.Movement.Rb2D.AddForce(-muzzle.right * _data.Weapon.Recoil, ForceMode2D.Impulse);
+                
+                var enumerator = _data.Weapon.Shoot(muzzle, _weapons.DamageModifiers);
+                enumerator.MoveNext();
+                
+                if (enumerator.Current is IEnumerator coroutine)
+                    do
+                    {
+                        _weapons._player.Movement.Rb2D.AddForce(-muzzle.right * _data.Weapon.Recoil, ForceMode2D.Impulse);
+                        yield return coroutine.Current;
+                    } while (coroutine.MoveNext());
+                
                 _isReady = true;
             }
         }

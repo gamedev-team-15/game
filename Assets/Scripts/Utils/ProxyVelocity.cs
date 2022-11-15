@@ -6,7 +6,6 @@ namespace Utils
     public class ProxyVelocity : IValueProvider<Vector2>
     {
         private readonly Rigidbody2D _rb2d;
-        public Vector2 Velocity => _rb2d.velocity;
 
         public ProxyVelocity(Rigidbody2D rb2d)
         {

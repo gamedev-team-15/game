@@ -137,8 +137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    baseValue: 20
+    baseValue: 40
   force: 32
   knockback: 5
   effect: {fileID: 0}
   piercingPower: 3
+  hitParticles: {fileID: 3000745994298477181, guid: 12ce2126b76df6c4c8d2388a620cee2a, type: 3}
+  hitSound: {fileID: 0}

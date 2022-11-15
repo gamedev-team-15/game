@@ -22,6 +22,7 @@ namespace Player
                 case StatType.MaxHealth:
                     break;
                 case StatType.ProjectileDamage:
+                    _player.Weapons.DamageModifiers.Add(modifier.ValueModifier);
                     break;
                 case StatType.ProjectileCount:
                     break;
@@ -42,6 +43,7 @@ namespace Player
                 case StatType.MaxHealth:
                     break;
                 case StatType.ProjectileDamage:
+                    _player.Weapons.DamageModifiers.Remove(modifier.ValueModifier);
                     break;
                 case StatType.ProjectileCount:
                     break;

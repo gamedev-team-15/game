@@ -22,20 +22,18 @@ namespace HealthSystem
             health.SetHealth(health.MaxHealth);
         }
 
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int value)
         {
             onDamage.Invoke();
-            health.ApplyDamage(damage);
+            health.ApplyDamage(value);
             if (health.CurrentHealth <= 0)
-            {
                 onDeath.Invoke();
-            }
         }
 
-        public void ApplyHeal(int hp)
+        public void ApplyHeal(int value)
         {
             onHeal.Invoke();
-            health.ApplyHeal(hp);
+            health.ApplyHeal(value);
         }
 
 #if UNITY_EDITOR

@@ -6,7 +6,7 @@ namespace Core
     {
         public void PlaySoundClip(AudioClip clip)
         {
-            AudioSource.PlayClipAtPoint(clip, transform.position);
+            AudioSource.PlayClipAtPoint(clip, transform.position, GameSettings.FxVolume);
         }
         
         public void DestroySelf()

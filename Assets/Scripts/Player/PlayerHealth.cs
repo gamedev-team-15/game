@@ -13,14 +13,14 @@ namespace Player
         public int CurrentHealth => _currentHealth;
         public float HealthPercent => (float)_currentHealth / _maxHealth.Value;
         
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int value)
         {
-            _currentHealth -= damage;
+            _currentHealth -= value;
         }
 
-        public void ApplyHeal(int hp)
+        public void ApplyHeal(int value)
         {
-            _currentHealth = Math.Clamp(_currentHealth + hp, 0, MaxHealth);
+            _currentHealth = Math.Clamp(_currentHealth + value, 0, MaxHealth);
         }
 
         public void LoadConfig(PlayerConfig config)

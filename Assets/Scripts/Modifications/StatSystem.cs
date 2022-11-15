@@ -71,6 +71,11 @@ namespace Modifications
             Apply(effect.Modifier);
         }
 
+        public void Clear()
+        {
+            _modifiers.Clear();
+        }
+
         protected abstract void Apply(StatModifier modifier);
         protected abstract void Remove(StatModifier modifier);
     }

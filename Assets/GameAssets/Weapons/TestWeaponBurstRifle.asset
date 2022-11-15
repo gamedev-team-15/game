@@ -22,5 +22,5 @@ MonoBehaviour:
     burstCooldown: 0.1
     bulletsPerShot: 3
     spread: 5
-    recoil: 0
+    recoil: 1
     fireMode: 0

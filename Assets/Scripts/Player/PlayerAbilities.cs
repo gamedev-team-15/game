@@ -49,7 +49,7 @@ namespace Player
             }
         }
 
-        public class AbilityContainer : IUpdatable, IValueProvider<float>
+        public class AbilityContainer : IUpdatable
         {
             public PlayerAbilityData AbilityData { get; }
             private float _timer;
@@ -71,11 +71,6 @@ namespace Player
                 if (_timer > 0) return;
                 AbilityData.Ability.Activate();
                 _timer = AbilityData.Ability.Cooldown;
-            }
-
-            public float GetValue()
-            {
-                return CooldownPercent;
             }
         }
     }
